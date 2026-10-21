@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="apple-touch-icon" href="https://augustineiacopelli.github.io/appaday/icons/167.png">
+<meta name="apple-mobile-web-app-title" content="Cub Ranks">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="manifest" href="https://augustineiacopelli.github.io/appaday/manifests/167.webmanifest">
+<script src="https://augustineiacopelli.github.io/appaday/save.js" defer></script>
+<title>Cub Scout Rank Checklist | AppADay 167</title>
+<meta name="description" content="Track Cub Scout advancement from Lion through Arrow of Light, check off requirements with dates, record alternates, and keep a Scoutbook entry queue.">
+<meta name="theme-color" content="#1a1714">
+<style>
+:root{
+  --accent:#C8401A; --accent-ink:#ffffff;
+  --bg:#f4f1ec; --surface:#ffffff; --surface-2:#ebe6de; --line:#d9d2c6;
+  --ink:#211d18; --ink-2:#5b5349; --ink-3:#7c7367;
+  --ok:#2c7a3f; --ok-bg:#e3f1e6; --warn:#9a5a00;
+  --rk:#C8401A; --shadow:0 1px 2px rgba(30,20,10,.08),0 4px 14px rgba(30,20,10,.06);
+  --r:14px;
+  --fs-xs:clamp(11px,2.9vw,12.5px); --fs-s:clamp(13px,3.4vw,14.5px); --fs-m:clamp(15px,3.9vw,16.5px);
+  --fs-l:clamp(18px,4.8vw,21px); --fs-xl:clamp(22px,6vw,28px);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --accent:#E2603A; --bg:#15130f; --surface:#211d18; --surface-2:#2c2721; --line:#3b342c;
+    --ink:#f2ece3; --ink-2:#c3b9ab; --ink-3:#978d80; --ok:#6cc483; --ok-bg:#1d3324; --warn:#e2a650;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{min-height:100dvh;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:var(--fs-m);line-height:1.45;display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--accent)}
+.appbar{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;background:#1a1714;color:#f5efe6}
+.appbar .num{background:var(--accent);color:#fff;font-weight:800;font-size:var(--fs-xs);letter-spacing:.06em;padding:4px 8px;border-radius:7px}
+.appbar .ttl{font-weight:700;font-size:var(--fs-m);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar a.home{color:#f5efe6;font-size:var(--fs-s);text-decoration:none;opacity:.85;padding:10px 4px}
+.iconbtn{min-width:44px;min-height:44px;border:0;border-radius:12px;background:rgba(255,255,255,.1);color:#f5efe6;display:inline-flex;align-items:center;justify-content:center}
+.iconbtn svg{width:22px;height:22px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 16px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;font-size:var(--fs-s);display:inline-flex;align-items:center;gap:8px}
+.chip .dot{width:10px;height:10px;border-radius:50%}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.chip.add{border-style:dashed;color:var(--ink-2)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:10px 16px 0;padding:4px;background:var(--surface-2);border-radius:14px}
+.seg button{min-height:44px;border:0;border-radius:10px;background:transparent;font-weight:600;font-size:var(--fs-s);color:var(--ink-2);position:relative}
+.seg button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.seg .badge{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--accent);color:#fff;font-size:var(--fs-xs);line-height:20px}
+main{flex:1;width:100%;max-width:760px;align-self:center;padding:14px 16px 24px}
+.banner{margin:10px 16px 0;padding:10px 12px;border-radius:10px;background:var(--surface-2);color:var(--warn);font-size:var(--fs-s)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px}
+.stack>*+*{margin-top:12px}
+h2{font-size:var(--fs-l);margin:0}
+h3{font-size:var(--fs-s);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin:22px 0 8px}
+.muted{color:var(--ink-2)}
+.small{font-size:var(--fs-s)}
+.xs{font-size:var(--fs-xs)}
+.bar{height:10px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--rk);border-radius:999px;transition:width .3s}
+.rankbadge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-weight:700;font-size:var(--fs-xs);color:#fff;background:var(--rk);letter-spacing:.03em}
+.stamp{display:inline-block;padding:2px 9px;border:2px solid var(--ok);color:var(--ok);border-radius:6px;font-weight:800;font-size:var(--fs-xs);letter-spacing:.1em;text-transform:uppercase;transform:rotate(-3deg)}
+.scoutcard{display:block;width:100%;text-align:left;border:1px solid var(--line);cursor:pointer}
+.scoutcard .row{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.scoutcard .name{font-size:var(--fs-l);font-weight:700}
+.minis{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:12px}
+.mini{text-align:center;font-size:var(--fs-xs);color:var(--ink-3)}
+.mini .bar{height:6px;margin-bottom:4px}
+.rankpick{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.rankpick::-webkit-scrollbar{display:none}
+.rankpick button{flex:0 0 auto;min-height:44px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:var(--fs-s)}
+.rankpick button[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff}
+.rankhead{border-top:5px solid var(--rk)}
+.rankhead .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.btn{min-height:44px;padding:0 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;font-size:var(--fs-s);display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.rk{background:var(--rk);border-color:var(--rk);color:#fff}
+.btn.danger{color:#b3261e;border-color:#e3b4ae}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--ink-2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.advlist{display:grid;gap:10px}
+.adv{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;min-height:64px;box-shadow:var(--shadow)}
+.adv .main{flex:1;min-width:0}
+.adv .nm{font-weight:700;font-size:var(--fs-m);line-height:1.25}
+.adv .sub{font-size:var(--fs-xs);color:var(--ink-3);margin-top:2px}
+.adv.done{border-color:var(--ok)}
+.ring{flex:0 0 auto;width:44px;height:44px}
+.ring circle{fill:none;stroke-width:5}
+.ring .bg{stroke:var(--surface-2)}
+.ring .fg{stroke:var(--rk);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .3s}
+.ring text{font-size:12px;font-weight:700;fill:var(--ink)}
+.ring.ok .fg{stroke:var(--ok)}
+.pin{flex:0 0 auto;min-width:44px;min-height:44px;border-radius:12px;border:1.5px solid var(--line);background:transparent;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.pin svg{width:20px;height:20px}
+.pin[aria-pressed="true"]{background:var(--rk);border-color:var(--rk);color:#fff}
+.advwrap{display:flex;gap:8px;align-items:stretch}
+.advwrap .adv{flex:1}
+.reqs{display:grid;gap:8px}
+.req{display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.req.on{border-color:var(--rk);background:color-mix(in srgb,var(--rk) 7%,var(--surface))}
+.req .tap{flex:1;display:flex;gap:12px;align-items:flex-start;text-align:left;background:transparent;border:0;padding:12px;min-height:44px}
+.box{flex:0 0 auto;width:26px;height:26px;border-radius:8px;border:2px solid var(--ink-3);margin-top:1px;position:relative}
+.req.on .box{background:var(--rk);border-color:var(--rk)}
+.req.on .box:after{content:"";position:absolute;left:8px;top:3px;width:6px;height:12px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.req .n{font-weight:800;color:var(--ink-3);min-width:1.2em}
+.req .t{line-height:1.6}
+.req .side{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:4px;padding:8px 10px 8px 0}
+.datechip{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:64px;padding:0 10px;border-radius:10px;background:var(--surface-2);font-size:var(--fs-xs);font-weight:700;white-space:nowrap}
+.datechip input{position:absolute;inset:0;opacity:0;width:100%;height:100%;border:0;cursor:pointer}
+.tag{font-size:var(--fs-xs);font-weight:700;color:var(--ok);white-space:nowrap}
+.alts{display:grid;gap:8px;margin-top:12px}
+.altrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;border:1.5px dashed var(--line)}
+.altrow.on{border-style:solid;border-color:var(--ok);background:var(--ok-bg)}
+.altrow .lbl{flex:1 1 100%;font-weight:600;font-size:var(--fs-s)}
+.grouphead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:14px 0 6px;font-weight:700;font-size:var(--fs-s)}
+.qadv{margin-top:10px}
+.qadv .hd{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.qitem{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.qitem .q{flex:1;min-width:0;font-size:var(--fs-s)}
+.qitem .q b{color:var(--ink-3);margin-right:4px}
+.empty{text-align:center;padding:28px 16px}
+.empty .big{font-size:var(--fs-xl);font-weight:800;margin-bottom:6px}
+footer{text-align:center;padding:18px 16px calc(env(safe-area-inset-bottom) + 18px);font-size:var(--fs-xs);color:var(--ink-3)}
+footer a{color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 18px);transform:translateX(-50%) translateY(140%);background:#1a1714;color:#f5efe6;border-radius:12px;padding:6px 6px 6px 14px;display:flex;align-items:center;gap:10px;width:calc(100vw - 32px);max-width:460px;box-shadow:0 8px 24px rgba(0,0,0,.3);transition:transform .25s;z-index:30;font-size:var(--fs-s)}
+.toast{visibility:hidden}.toast.show{transform:translateX(-50%) translateY(0);visibility:visible}
+.toast span{flex:1}
+.toast button{min-height:44px;padding:0 14px;border:0;border-radius:10px;background:var(--accent);color:#fff;font-weight:700}
+.scrim{position:fixed;inset:0;background:rgba(10,8,5,.5);display:none;align-items:flex-end;justify-content:center;z-index:40}
+.scrim.open{display:flex}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:88dvh;overflow-y:auto;border-radius:20px 20px 0 0;padding:8px 16px calc(env(safe-area-inset-bottom) + 20px)}
+@media (min-width:600px){.scrim{align-items:center}.sheet{border-radius:20px}}
+.sheethead{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:1}
+.field{display:grid;gap:6px;margin-top:10px}
+.field label{font-size:var(--fs-xs);font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+.inp{min-height:44px;width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);padding:0 12px;font-size:16px}
+.srow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end;padding:12px 0;border-top:1px solid var(--line)}
+.srow .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.dialog .msg{font-size:var(--fs-m);margin:8px 0 4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="appbar">
+  <span class="num">167</span>
+  <span class="ttl">Cub Scout Rank Checklist</span>
+  <a class="home" href="https://augustineiacopelli.github.io/appaday/">Portfolio</a>
+  <button class="iconbtn" id="gear" aria-label="Settings" data-act="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+</header>
+<div id="banner" class="banner" hidden>This browser is not saving data, so progress will be lost when the page closes. Export a backup from Settings.</div>
+<nav class="chips" id="chips" aria-label="Scouts"></nav>
+<div class="seg" role="tablist" id="seg">
+  <button role="tab" data-act="view" data-v="summary">Summary</button>
+  <button role="tab" data-act="view" data-v="rank">Rank</button>
+  <button role="tab" data-act="view" data-v="adventure">Adventure</button>
+  <button role="tab" data-act="view" data-v="queue">Queue</button>
+</div>
+<main id="view" aria-live="polite"></main>
+<footer>AppADay 167 &middot; <a href="https://augustineiacopelli.github.io/appaday/">Back to the portfolio</a><br>Requirement lines are plain-language summaries numbered to match Scoutbook. Official wording is on scouting.org.</footer>
+<div class="toast" id="toast" role="status"><span id="toastMsg"></span><button id="toastUndo" data-act="undo">Undo</button></div>
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<input type="file" id="importFile" accept="application/json,.json" class="sr" tabindex="-1" aria-hidden="true">
+<script>
+/* CATALOG: Cub Scout program in effect since June 2024. Requirement lines are plain-language summaries
+   numbered to match Scoutbook; the official wording lives on the scouting.org page linked per rank.
+   Adventure tuple: [id, name, type r|e, focus, reqs[], opts{alts, groups, note}] */
+var FOCI = {C:"Character and Leadership", O:"Outdoors", F:"Personal Fitness", Z:"Citizenship", S:"Personal Safety", R:"Family and Reverence", E:"Elective"};
+var RE = {alts:["religiousEmblem"]};
+var SL = {alts:["swimLessons"]};
+var SWIM = {alts:["swimmerTest","swimLessons"]};
+var PG = "How to Protect Your Children From Child Abuse: A Parent's Guide";
+var SUMMER = ["Between May and August, take part in three Cub Scout activities."];
+var RAW = [
+ {id:"lion", name:"Lion", grade:"Kindergarten", color:"#D9A300", url:"https://www.scouting.org/programs/cub-scouts/adventures/lion/", adv:[
+  ["bobcat","Bobcat","r","C",[
+   "Get to know the members of your den.",
+   "Have your adult partner or den leader read you the Scout Law, then show what being friendly looks like.",
+   "Tell your adult partner about a time you lived out the Cub Scout motto, Do Your Best.",
+   "At home with a parent or legal guardian, complete the activities in "+PG+"."]],
+  ["mountain-lion","Mountain Lion","r","O",[
+   "Name the Cub Scout Six Essentials and show what each one is for.",
+   "Spend at least 20 minutes outdoors with your den, pack, or family carrying your Six Essentials, pointing out natural and manmade things with your adult partner.",
+   "Find out what S.A.W. stands for.",
+   "Name common animals where you live and sort them into domesticated and wild."]],
+  ["fun-on-the-run","Fun on the Run","r","F",[
+   "Name the five food groups.",
+   "Practice handwashing and point out when hands should be washed.",
+   "Be active for 20 minutes.",
+   "Practice ways that help you rest."]],
+  ["king-of-the-jungle","King of the Jungle","r","Z",[
+   "Draw or photograph the people you live with.",
+   "With your adult partner, choose a job that helps your family and do it at least once.",
+   "Ask a grandparent or other older adult what citizenship means to them.",
+   "Take part in a service project."]],
+  ["lions-roar","Lion's Roar","r","S",[
+   "With permission from a parent or legal guardian, watch the Lion Protect Yourself Rules video.",
+   "With your adult partner, show Shout, Run, Tell from the video.",
+   "With your adult partner, show how to reach emergency services.",
+   "With your adult partner, show how to cross a street or walk through a parking lot safely."]],
+  ["lions-pride","Lion's Pride","r","R",[
+   "Talk with a parent or legal guardian about your family's faith traditions, then draw a favorite faith holiday or celebration.",
+   "With your family, attend a religious service or other gathering that shows how your family expresses reverence.",
+   "Make a cheerful card or drawing for someone you love and give it to them."],RE],
+  ["build-it-up-knock-it-down","Build It Up, Knock It Down","e","E",[
+   "Build a structure with your adult partner.",
+   "Build a structure with your den or family.",
+   "Build something designed to be knocked down."]],
+  ["champions-for-nature","Champions for Nature","e","E",[
+   "Learn how natural resources differ from manmade items.",
+   "Learn how organic, paper, and glass waste differ.",
+   "Learn about recycling.",
+   "Take part in a conservation service project."]],
+  ["count-on-me","Count on Me","e","E",[
+   "Make a lion using only squares, triangles, and circles.",
+   "Play a counting or number game with your adult partner or den.",
+   "Sort a group of items by shape, by color, and by one more category, count the shapes in each, then build something using only one category."]],
+  ["everyday-tech","Everyday Tech","e","E",[
+   "Find technology in your home, meeting place, or neighborhood.",
+   "Find ways digital technology makes life easier.",
+   "Pick a digital device you use at home and show your adult partner how you use it safely."]],
+  ["gizmos-and-gadgets","Gizmos and Gadgets","e","E",[
+   "Explore how things move.",
+   "Explore how force works.",
+   "Make a useful object from household materials."]],
+  ["go-fish","Go Fish","e","E",[
+   "With your adult partner, learn the rules for fishing safely.",
+   "Draw the kind of fish you think lives where you will fish.",
+   "Go fishing with your adult partner."]],
+  ["ill-do-it-myself","I'll Do It Myself","e","E",[
+   "Make and use a lion bag for your Scouting gear.",
+   "Make a personal care checklist.",
+   "Put on your shoes without help, then take them off and put them away."]],
+  ["lets-camp","Let's Camp","e","E",[
+   "Learn the buddy system and how it works outdoors.",
+   "Before the campout, talk about the expected weather and what clothes to wear.",
+   "Pack your Six Essentials for the campout.",
+   "Attend a council or district Cub Scout overnight camp or a pack campout."]],
+  ["on-a-roll","On a Roll","e","E",[
+   "Learn the safety gear for riding a bicycle.",
+   "Learn the safety rules for riding a bicycle.",
+   "Ride a bicycle with your adult partner or family, wearing safety gear and following the rules."]],
+  ["on-your-mark","On Your Mark","e","E",[
+   "Play a game with your den.",
+   "Take part in an obstacle course relay.",
+   "Build a box derby car and race it."]],
+  ["pick-my-path","Pick My Path","e","E",[
+   "Explain that choices have consequences.",
+   "Do a Good Turn for someone.",
+   "Learn the basic rules of a game and play it."]],
+  ["race-time","Race Time","e","E",[
+   "With your adult partner, build and decorate a Pinewood Derby car or a Raingutter Regatta boat.",
+   "Learn the race rules for your vehicle.",
+   "Before the race, talk with your adult partner about showing good sportsmanship.",
+   "Race in a Pinewood Derby or Raingutter Regatta with your adult partner."]],
+  ["ready-set-grow","Ready, Set, Grow","e","E",[
+   "Find out where the food we eat comes from.",
+   "Plant a small garden outdoors or in a container.",
+   "Visit someone who can show different ways to garden and the basic skills it takes."]],
+  ["time-to-swim","Time to Swim","e","E",[
+   "Learn the swimming safety rules.",
+   "Show how to enter the swimming area properly.",
+   "With your adult partner as your buddy, be active for 20 minutes in water suited to your ability.",
+   "Put your face in the water and blow bubbles.",
+   "Show how to exit the swimming area properly."],SL]
+ ]},
+ {id:"tiger", name:"Tiger", grade:"1st grade", color:"#E8661C", url:"https://www.scouting.org/programs/cub-scouts/adventures/tiger/", adv:[
+  ["bobcat","Bobcat","r","C",[
+   "Get to know the members of your den.",
+   "Say the Scout Oath with your den and adult partner.",
+   "Hear the Scout Law read by your adult partner or den leader, then show what being trustworthy, helpful, or friendly looks like.",
+   "Show the Cub Scout sign, salute, and handshake and explain when each is used.",
+   "Tell your adult partner about a time you lived out the motto, Do Your Best.",
+   "At home with a parent or legal guardian, complete the activities in "+PG+"."]],
+  ["tigers-in-the-wild","Tigers in the Wild","r","O",[
+   "Name the Cub Scout Six Essentials and explain what each one is for.",
+   "Learn the Outdoor Code with your den leader or adult partner.",
+   "Walk outdoors for at least 20 minutes with your den, pack, or family carrying your Six Essentials, pointing out natural and manmade things.",
+   "Name common animals where you live, sort them into domesticated and wild, and draw your favorite.",
+   "Find a tree near you and explain how it helps people."]],
+  ["tiger-bites","Tiger Bites","r","F",[
+   "Name the five food groups.",
+   "Practice handwashing and point out when hands should be washed.",
+   "Be active for 30 minutes.",
+   "Practice habits that help you fall asleep."]],
+  ["team-tiger","Team Tiger","r","Z",[
+   "Play a game with rules with your den or family and talk about why rules matter.",
+   "With your adult partner, choose a job that helps your team and do it at least once.",
+   "Play a game with two or more teams, then talk about what makes a good teammate.",
+   "Take part in a service project."]],
+  ["tigers-roar","Tiger's Roar","r","S",[
+   "With permission from a parent or legal guardian, watch the Tiger Protect Yourself Rules video.",
+   "With your adult partner, show Shout, Run, Tell from the video.",
+   "With your adult partner, show how to get emergency help.",
+   "With your adult partner, show what to do if you get lost or separated."]],
+  ["tiger-circles","Tiger Circles","r","R",[
+   "Talk with a parent or legal guardian about your family's faith traditions, name three holidays or celebrations, and draw your favorite.",
+   "With your family, attend a religious service or other gathering that shows how your family expresses reverence.",
+   "Do an act of kindness."],RE],
+  ["champions-for-nature","Champions for Nature","e","E",[
+   "Learn the difference between renewable and nonrenewable natural resources.",
+   "Learn the three Rs: reduce, reuse, recycle.",
+   "Find out what happens to garbage in your community.",
+   "Take part in a conservation service project."]],
+  ["curiosity-intrigue-and-magical-mysteries","Curiosity, Intrigue, and Magical Mysteries","e","E",[
+   "Learn and practice a magic trick, then perform it for your den or family.",
+   "Explain how the trick works.",
+   "Write your name in a secret code.",
+   "Write a coded message and challenge someone to decode it."]],
+  ["designed-by-tiger","Designed by Tiger","e","E",[
+   "Think of something to build and draw what it will look like.",
+   "Build it from your drawing.",
+   "Talk with your adult partner about how it could be better.",
+   "Make the improvement.",
+   "Draw the finished project."]],
+  ["fish-on","Fish On","e","E",[
+   "Identify the body of water where you will fish.",
+   "Learn the safety rules for fishing with your adult partner.",
+   "Draw the kind of fish you think lives in that water.",
+   "Go fishing with your adult partner."]],
+  ["floats-and-boats","Floats and Boats","e","E",[
+   "Name five types of boats.",
+   "Name five things that float and five that sink.",
+   "Build a model boat and float it."]],
+  ["good-knights","Good Knights","e","E",[
+   "Talk about what courteous behavior is, how a knight acts, and which points of the Scout Law match.",
+   "Make a shield for yourself or your den.",
+   "Build a small castle from recycled and other materials.",
+   "Do a Good Turn."]],
+  ["lets-camp","Let's Camp","e","E",[
+   "Learn the buddy system and how it works outdoors.",
+   "Before the campout, talk about the expected weather and what clothes to wear.",
+   "Pack your Six Essentials for the campout.",
+   "Learn a camping skill.",
+   "Attend a council or district Cub Scout overnight camp or a pack campout."]],
+  ["race-time","Race Time","e","E",[
+   "With your adult partner, build and decorate a Pinewood Derby car or a Raingutter Regatta boat.",
+   "Learn the race rules for your vehicle.",
+   "Talk with your adult partner about showing good sportsmanship.",
+   "Race in a Pinewood Derby or Raingutter Regatta with your adult partner."]],
+  ["rolling-tigers","Rolling Tigers","e","E",[
+   "Learn the ABCs of bike care: air, brakes, chain.",
+   "Learn the safety gear for riding a bike.",
+   "Learn the safety rules for riding a bike.",
+   "Show the proper hand signals.",
+   "Ride a bike, or start learning to ride, with your adult partner or family."]],
+  ["safe-and-smart","Safe and Smart","e","E",[
+   "Memorize your home address and say it to your adult partner or den leader.",
+   "Memorize an emergency contact's phone number and say it to your adult partner or den leader.",
+   "Show that you can stop, drop, and roll.",
+   "Make a fire escape plan for your home or meeting place with an outside meeting spot, and practice it.",
+   "Find the smoke detectors with your adult partner and check that they work.",
+   "Learn why matches and lighters are for adults only.",
+   "Visit an emergency responder station or have a responder visit your den."]],
+  ["sky-is-the-limit","Sky Is the Limit","e","E",[
+   "Look at the night sky and talk about what you see or might see.",
+   "Look at distant objects through a telescope, binoculars, or camera and show how to focus it.",
+   "Find two easy constellations, learn their names and how to find them, and draw one.",
+   "Build a model of a constellation."]],
+  ["stories-in-shapes","Stories in Shapes","e","E",[
+   "Explore art in your community.",
+   "Look closely at a piece of art, or a picture of one, and share what you like about it.",
+   "Make a piece of art using shapes.",
+   "Learn to spell your name in Braille and in sign language."]],
+  ["summertime-fun","Summertime Fun","e","E",SUMMER],
+  ["tech-all-around","Tech All Around","e","E",[
+   "Find technology in your home, meeting place, or neighborhood.",
+   "Find ways digital technology makes life easier.",
+   "Pick a digital device you use at home and show your adult partner how you use it safely.",
+   "Create a family digital device policy with your parent or legal guardian."]],
+  ["tiger-tag","Tiger Tag","e","E",[
+   "Play an active game with your den and say why you like it.",
+   "Play a relay game with your den and say why you like it.",
+   "Talk about what it means to be a good sport.",
+   "Attend a sporting event."]],
+  ["tiger-iffic","Tiger-iffic!","e","E",[
+   "Play at least two different games by yourself; one may be a video game.",
+   "Play an indoor or board game with den or family members.",
+   "Invent a game or change the rules of one you know, then play it.",
+   "Play a team game with your den or family."]],
+  ["tigers-in-the-water","Tigers in the Water","e","E",[
+   "Learn the swimming safety rules.",
+   "Show how to enter the swimming area properly.",
+   "With your adult partner as your buddy, be active for 20 minutes in water suited to your ability.",
+   "Put your face in the water and blow bubbles.",
+   "Show a flutter kick.",
+   "Show how to exit the swimming area properly."],SL]
+ ]},
+ {id:"wolf", name:"Wolf", grade:"2nd grade", color:"#C8102E", url:"https://www.scouting.org/programs/cub-scouts/adventures/wolf/", adv:[
+  ["bobcat","Bobcat","r","C",[
+   "Get to know the members of your den.",
+   "Say the Scout Oath and Scout Law with your den and den leader.",
+   "Learn what the Scout Law means.",
+   "Create a den Code of Conduct with your den.",
+   "Show the Cub Scout sign, salute, and handshake and explain when each is used.",
+   "Tell your den or family about a time you lived out the motto, Do Your Best.",
+   "At home with a parent or legal guardian, complete the activities in "+PG+"."]],
+  ["paws-on-the-path","Paws on the Path","r","O",[
+   "Name the Cub Scout Six Essentials and explain how you use each one.",
+   "Learn the buddy system for the outdoors and pick a buddy for your walk.",
+   "Choose clothing and shoes suited to an outdoor walk and wear them on your walk if you can.",
+   "Learn the Outdoor Code and the Leave No Trace Principles for Kids.",
+   "Take a walk of at least 30 minutes with your den, pack, or family and describe four animals, wild or domestic, you might see."]],
+  ["running-with-the-pack","Running With the Pack","r","F",[
+   "Try three foods of three different colors, each a protein, vegetable, fruit, dairy, or grain.",
+   "Show the right way to brush your teeth.",
+   "Be active for 30 minutes with your den or another person, including stretching and moving.",
+   "Do 10 minutes of exercise on your own.",
+   "Do a relaxing activity for 10 minutes.",
+   "Review your Annual Health and Medical Record with a parent or legal guardian and talk about which activities you can join."]],
+  ["council-fire","Council Fire","r","Z",[
+   "Learn how to care for and fold the U.S. flag, and take part in a flag ceremony with your den or pack.",
+   "Name three points of the Scout Law that make someone a good neighbor.",
+   "Build a model of your home.",
+   "With the same materials, build a model of a building you have visited.",
+   "Put the models from requirements 3 and 4 together to make a neighborhood.",
+   "Take part in a service project and explain how it helps your neighborhood."]],
+  ["safety-in-numbers","Safety in Numbers","r","S",[
+   "With permission from a parent or legal guardian, watch the Wolf Protect Yourself Rules video.",
+   "Talk about safe touch as shown in the video.",
+   "Learn the buddy system and show how it works.",
+   "Go over common safety rules and show how to use playground equipment safely."]],
+  ["footsteps","Footsteps","r","R",[
+   "Talk with a parent or legal guardian about your family's faith traditions, name three holidays or celebrations, and make a craft or artwork about one.",
+   "With your family, attend a religious service or other gathering that shows how your family expresses reverence.",
+   "Do an act of kindness.",
+   "Hear or read Aesop's fable of the boy who cried wolf and talk about why honesty matters."],RE],
+  ["a-wolf-goes-fishing","A Wolf Goes Fishing","e","E",[
+   "Identify where you will fish and the fish that live there.",
+   "Learn the kinds of bait used to attract fish.",
+   "Show a correct cast with your pole or rod.",
+   "Learn the rules of safe fishing.",
+   "Go fishing with your den, pack, or family."]],
+  ["adventures-in-coins","Adventures in Coins","e","E",[
+   "Identify the parts of a coin.",
+   "Find a coin's mint mark and figure out where and when it was made.",
+   "Play a coin game.",
+   "Make a rubbing of a coin and note its design, year, and mint."]],
+  ["air-of-the-wolf","Air of the Wolf","e","E",[
+   "Make a paper airplane, fly it five times, and record distance and time.",
+   "Make a second paper airplane of a different design, fly it five times, and record distance and time.",
+   "Compare the two airplanes' distances and flight times.",
+   "Build a flying machine that is not a paper airplane."]],
+  ["champions-for-nature","Champions for Nature","e","E",[
+   "Learn the difference between renewable and nonrenewable natural resources.",
+   "Learn about reducing, reusing, and recycling.",
+   "Find out what happens to recyclables in your community.",
+   "Take part in a conservation project."]],
+  ["code-of-the-wolf","Code of the Wolf","e","E",[
+   "Create a secret code, send a coded message to a den or family member, and get a coded reply.",
+   "Build and play a game that uses codes or patterns.",
+   "Pick one shape, look for it around you, and record where it appears and how it is used.",
+   "Use a package of different colored items to find the most common color."]],
+  ["computing-wolves","Computing Wolves","e","E",[
+   "Identify the basic parts of a computer.",
+   "Learn how to dispose of computer parts properly.",
+   "Use a digital app to create a story to share.",
+   "Create a family policy for safe device use with a parent or legal guardian."]],
+  ["cubs-who-care","Cubs Who Care","e","E",[
+   "Learn what it is like to have a physical disability.",
+   "Learn what it is like to have a visual impairment.",
+   "Learn what it is like to have hearing loss.",
+   "Explore barriers that make it hard to get around."]],
+  ["digging-in-the-past","Digging in the Past","e","E",[
+   "Play a game that tests what you know about dinosaurs.",
+   "Invent a dinosaur and describe its name, diet, size, and habitat.",
+   "Act as a paleontologist on a dinosaur dig.",
+   "Build a fossil layer."]],
+  ["finding-your-way","Finding Your Way","e","E",[
+   "Use a map to find where you live.",
+   "Draw a map with a key so a friend can find your home or school.",
+   "Find north, east, south, west, and the compass rose on a map.",
+   "Find north, east, south, and west with a compass.",
+   "Practice using a map and compass together."]],
+  ["germs-alive","Germs Alive!","e","E",[
+   "Wash your hands with soap and water while singing Happy Birthday twice.",
+   "Play Germ Magnet with your den or family, then wash your hands.",
+   "Do the sneeze demonstration.",
+   "Do the mucus demonstration.",
+   "Grow a mold culture and show the results at a den or pack meeting."]],
+  ["lets-camp","Let's Camp","e","E",[
+   "Learn the buddy system and how it works outdoors.",
+   "Know the Cub Scout Six Essentials.",
+   "List the personal items you need for a campout beyond the Six Essentials.",
+   "Learn a camping skill.",
+   "Attend a council or district Cub Scout overnight camp or a pack campout."]],
+  ["paws-for-water","Paws for Water","e","E",[
+   "Learn the swimming safety rules.",
+   "Show how to enter the swimming area properly.",
+   "Using the buddy system and staying in your ability group, swim with your den or family for 30 minutes.",
+   "Try at least one stroke: front crawl, restful backstroke, or breaststroke.",
+   "Jump feet first into water at least chest deep.",
+   "Show how to exit the swimming area properly."],SWIM],
+  ["paws-of-skill","Paws of Skill","e","E",[
+   "Talk with your den about sportsmanship and how it ties to the Scout Oath and Scout Law.",
+   "Learn the rules of a team sport and play it with others for 30 minutes.",
+   "Watch or attend a team sporting event and notice how the team works together."]],
+  ["pedal-with-the-pack","Pedal With the Pack","e","E",[
+   "Show how to wear a bike helmet and put it on and take it off by yourself.",
+   "Decide what to wear when riding.",
+   "Learn the types of bikes and where each is best ridden.",
+   "Start and stop your bike by yourself.",
+   "Show the proper hand signals.",
+   "Use the buddy system on a bike ride with your den, pack, or family."]],
+  ["race-time","Race Time","e","E",[
+   "With an adult, build a Pinewood Derby car or a Raingutter Regatta boat.",
+   "Learn the race rules for your vehicle.",
+   "Find ways to make your vehicle faster.",
+   "Before the race, talk with your den about showing good sportsmanship.",
+   "Race in a Pinewood Derby or Raingutter Regatta."]],
+  ["spirit-of-the-water","Spirit of the Water","e","E",[
+   "Find out where your home's water comes from.",
+   "Talk about how water gets polluted.",
+   "Share ways to save water at home.",
+   "Learn how your community makes water safe to drink."]],
+  ["summertime-fun","Summertime Fun","e","E",SUMMER]
+ ]},
+ {id:"bear", name:"Bear", grade:"3rd grade", color:"#2F80C2", url:"https://www.scouting.org/programs/cub-scouts/adventures/bear/", adv:[
+  ["bobcat","Bobcat","r","C",[
+   "Get to know the members of your den.",
+   "Say the Scout Oath and Scout Law with your den and den leader.",
+   "Learn the Scout Oath and its three parts.",
+   "Create a den Code of Conduct with your den.",
+   "Learn what a denner does and what the job takes.",
+   "Show the Cub Scout sign, salute, and handshake and explain when each is used.",
+   "Tell your den or family about a time you did your best and why it matters.",
+   "At home with a parent or legal guardian, complete the activities in "+PG+"."]],
+  ["bear-habitat","Bear Habitat","r","O",[
+   "Gather your Six Essentials and weather-ready clothing and shoes for a one mile walk.",
+   "Find your route on a map and confirm it is one mile.",
+   "Learn about the trail and the land around it.",
+   "Plan what to do with your own trash and any you find.",
+   "Photograph or sketch five things you want to remember from the walk.",
+   "Find the fire danger rating for your path.",
+   "From a safe distance, spot six signs of animals around you.",
+   "Name ways to be considerate of others on the trail.",
+   "Take the one mile walk with your den, pack, or family, following the Leave No Trace Principles for Kids."]],
+  ["bear-strong","Bear Strong","r","F",[
+   "Try foods from three of these groups: protein, vegetables, fruits, dairy, grains.",
+   "Be active for 30 minutes with your den or another person, including stretching and moving.",
+   "Do 15 minutes of exercise on your own that raises your heart rate, works your muscles, and builds flexibility.",
+   "Do a calming activity for 10 minutes.",
+   "Review your Annual Health and Medical Record with a parent or legal guardian and talk about which activities you can join."]],
+  ["paws-for-action","Paws for Action","r","Z",[
+   "Learn the history of the U.S. flag and how to raise, lower, fold, display, and respect it.",
+   "Name three U.S. symbols and make a model, artwork, or craft of your favorite.",
+   "Learn a nonprofit's mission, how it is funded, and how volunteers help.",
+   "Take part in a service project."]],
+  ["standing-tall","Standing Tall","r","S",[
+   "With permission from a parent or legal guardian, watch the Bear Protect Yourself Rules video.",
+   "Complete the Personal Space Bubble worksheet.",
+   "Make a family rule for digital devices with your parent or legal guardian.",
+   "Name safety gear for your head, eyes, mouth and nose, hands, and feet, explain how each protects you, and show the right gear for an activity."]],
+  ["fellowship","Fellowship","r","R",[
+   "Talk with a parent or legal guardian about your family's faith traditions, name three holidays or celebrations, and make a craft, artwork, or food tied to one.",
+   "With your family, attend a religious service or other gathering that shows how your family expresses reverence.",
+   "Do an act of kindness.",
+   "With a parent or legal guardian, pick a faith different from your own and find two things it shares with your family's beliefs."],RE],
+  ["a-bear-goes-fishing","A Bear Goes Fishing","e","E",[
+   "Learn about three kinds of fish in your area.",
+   "Learn your local fishing regulations with an adult.",
+   "Name three regulations and a reason for each.",
+   "Learn to use your fishing gear safely.",
+   "Learn to attach a hook, lure, or fly to your line.",
+   "Fish for at least 30 minutes using what you learned."]],
+  ["balancing-bears","Balancing Bears","e","E",[
+   "Make trail mix using trail mix math.",
+   "Pick an animal with a patterned appearance and explain how it uses the pattern.",
+   "Find examples of bilateral symmetry in nature.",
+   "Find examples of radial symmetry in nature."]],
+  ["baloo-the-builder","Baloo the Builder","e","E",[
+   "Learn basic tools, how to use each one, and why tool safety matters.",
+   "Practice with four of the tools from requirement 1.",
+   "Choose a project to build.",
+   "List the tools and materials your project needs.",
+   "Build your project."]],
+  ["bears-afloat","Bears Afloat","e","E",[
+   "Pass the Scouting America swimmer test before requirements 6 and 7.",
+   "Choose a canoe, kayak, or stand up paddleboard.",
+   "Talk about why qualified adult supervision matters for paddle craft.",
+   "Explain the safety rules for your paddle craft.",
+   "Learn how to tell a life jacket fits and is approved, and show how to wear it.",
+   "See how your craft responds when you paddle from different positions.",
+   "Paddle for at least 30 minutes."]],
+  ["bears-on-bikes","Bears on Bikes","e","E",[
+   "Show how to wear a bike helmet properly.",
+   "Decide what to wear when riding.",
+   "Show the proper hand signals.",
+   "Show how to adjust saddle height.",
+   "Show how to use the brakes.",
+   "Inflate tires with a pump and explain why riding on low tires is unsafe.",
+   "Ride for 30 minutes with your family, den, or pack using the buddy system."]],
+  ["champions-for-nature","Champions for Nature","e","E",[
+   "Discover natural resources.",
+   "Find out what happens to wastewater in your community.",
+   "Investigate soil.",
+   "Investigate air pollution.",
+   "Take part in a conservation project."]],
+  ["chef-tech","Chef Tech","e","E",[
+   "Choose a kitchen appliance that uses technology.",
+   "Review the safety guidelines in its manual with an adult.",
+   "With adult supervision, find a recipe with a cooking app or online search.",
+   "With adult supervision, make the recipe.",
+   "Describe how technology could improve the appliance you used."]],
+  ["critter-care","Critter Care","e","E",[
+   "Identify an animal that would make a good family pet.",
+   "Compare two pets allowed in your community as choices for you.",
+   "Research how to care for the animal from requirement 1.",
+   "Name three ways pets help people."]],
+  ["forensics","Forensics","e","E",[
+   "Learn what forensics means and how it helps solve crimes.",
+   "Analyze your fingerprints.",
+   "Make a shoe print impression.",
+   "Analyze salt, sugar, baking soda, and cornstarch.",
+   "Learn about chromatography and how investigators use it.",
+   "Learn how officers collect evidence."]],
+  ["lets-camp","Let's Camp","e","E",[
+   "Review the buddy system and how it works outdoors.",
+   "Pack your Six Essentials for a campout.",
+   "Show the personal items you need beyond the Six Essentials.",
+   "Help set up a tent, choose a good spot for it, and explain why.",
+   "Attend a council or district Cub Scout overnight camp or a pack campout."]],
+  ["marble-madness","Marble Madness","e","E",[
+   "Make a marble bag.",
+   "Learn five marble terms.",
+   "Play three different marble games.",
+   "Build a marble racetrack with at least two lanes.",
+   "Build a marble maze."]],
+  ["race-time","Race Time","e","E",[
+   "With an adult, build a Pinewood Derby car or a Raingutter Regatta boat.",
+   "Learn the race rules for your vehicle.",
+   "Find ways to make your vehicle faster.",
+   "Before the race, talk with your den about showing good sportsmanship.",
+   "Race in a Pinewood Derby or Raingutter Regatta."]],
+  ["roaring-laughter","Roaring Laughter","e","E",[
+   "Talk with your den or family about what makes you laugh.",
+   "Practice reading tongue twisters.",
+   "Play charades with your den or family.",
+   "Hold a funniest joke contest with your den or family.",
+   "Practice run on sentences with your den or family."]],
+  ["salmon-run","Salmon Run","e","E",[
+   "Identify what makes an adult qualified to supervise a swimming activity.",
+   "Learn the three Scouting America swimming ability groups and the water depth for each.",
+   "Swim for 30 minutes with your den, pack, or family using the buddy system.",
+   "Show the buddy system, buddy checks, and ability groups.",
+   "Attempt the Scouting America beginner test.",
+   "Show a reach rescue and a throw rescue."],SWIM],
+  ["summertime-fun","Summertime Fun","e","E",SUMMER],
+  ["super-science","Super Science","e","E",[
+   "Do a static electricity investigation.",
+   "Do a sink or float investigation.",
+   "Do a color morphing investigation.",
+   "Do a color layering investigation."]],
+  ["whittling","Whittling","e","E",[
+   "Read, understand, and agree to follow the Cub Scout Knife Safety Rules.",
+   "Show the knife safety circle.",
+   "Show that you can care for and safely use a pocketknife.",
+   "Make two carvings with a pocketknife."]]
+ ]},
+ {id:"webelos", name:"Webelos", grade:"4th grade", color:"#1D7A55", url:"https://www.scouting.org/programs/cub-scouts/adventures/webelos/", adv:[
+  ["bobcat","Bobcat","r","C",[
+   "Get to know the members of your den.",
+   "Say the Scout Oath and Scout Law with your den and den leader and describe three points of the Oath.",
+   "Learn about the Scout Law.",
+   "Learn what a denner does and what the job takes.",
+   "Create a den Code of Conduct with your den.",
+   "Show the Cub Scout sign, salute, and handshake and explain when each is used.",
+   "At home with a parent or legal guardian, complete the activities in "+PG+"."]],
+  ["webelos-walkabout","Webelos Walkabout","r","O",[
+   "Gather your Six Essentials and weather-ready clothing and shoes for a two mile walk.",
+   "Plan a two mile route.",
+   "Check the forecast for the day of your walk.",
+   "Review the four points of the SAFE Checklist and how you will apply them.",
+   "Show first aid for (a) a blister, (b) a sprained ankle, (c) sunburn, and (d) dehydration and heat illness.",
+   "Walk the two miles with your den, pack, or family following the Outdoor Code and Leave No Trace Principles for Kids.",
+   "Talk with your den about what went well and what you would change."]],
+  ["stronger-faster-higher","Stronger, Faster, Higher","r","F",[
+   "Plan, cook, and eat a balanced meal with your den or family.",
+   "Be active for 30 minutes with your den or another person, including stretching and moving.",
+   "Do 15 minutes of exercise on your own that raises your heart rate, works your muscles, and builds flexibility.",
+   "Do a relaxing activity for 10 minutes.",
+   "Review your Annual Health and Medical Record with a parent or legal guardian and talk about which activities you can join."]],
+  ["my-community","My Community","r","Z",[
+   "Learn about majority and plurality voting.",
+   "Talk with an elected official about how they were elected and why that method was used.",
+   "Choose a federal law, make a timeline of its history, and show how all three branches of government were involved.",
+   "Take part in a service project."]],
+  ["my-safety","My Safety","r","S",[
+   "With permission from a parent or legal guardian, watch the Webelos Protect Yourself Rules video.",
+   "Find hazardous products at home, make sure they are stored safely, and find the first aid directions on each.",
+   "Identify ways your family or meeting place stays safe.",
+   "Complete the Be Prepared for Natural Events worksheet for at least two events likely where you live."]],
+  ["my-family","My Family","r","R",[
+   "Talk with a parent or legal guardian about your family's faith traditions, name three holidays or celebrations, and make a craft, artwork, or food tied to one.",
+   "Do an act of kindness.",
+   "With a parent or legal guardian, pick a faith different from your own and find two beliefs it shares with your family's.",
+   "Talk with a parent or legal guardian about what reverence means and how you practice it every day."],RE],
+  ["aquanaut","Aquanaut","e","E",[
+   "Name the safety precautions to take before any swimming activity.",
+   "Explain the order of rescue and show reach and throw rescues from land.",
+   "Learn how to prevent and treat hypothermia.",
+   "Attempt to tread water.",
+   "Attempt the Scouting America swimmer test.",
+   "Free swim for at least 30 minutes using the buddy system and staying in your ability group."],SWIM],
+  ["art-explosion","Art Explosion","e","E",[
+   "Make a pencil drawing and explore different techniques.",
+   "Change a digital image with filters or in-camera techniques and observe the results.",
+   "Make a painting.",
+   "Make a piece of art that combines at least two media."]],
+  ["aware-and-care","Aware and Care","e","E",[
+   "Do an activity that shows the challenges of a visual impairment.",
+   "Do an activity that shows the challenges of a hearing impairment.",
+   "Explore barriers to access.",
+   "Meet someone with a disability, or who works with people with disabilities, and learn the obstacles they face and how they overcome them."]],
+  ["build-it","Build It","e","E",[
+   "Learn basic tools, how to use them, and tool safety.",
+   "Show how to check for plumb, level, and square.",
+   "With an adult, choose a carpentry project that must be plumb, level, or square, and list its tools and materials.",
+   "Build the project."]],
+  ["catch-the-big-one","Catch the Big One","e","E",[
+   "Plan a fishing trip: where you will go and what fish you want to catch.",
+   "Use the SAFE Checklist to plan the trip.",
+   "Describe where your target fish lives.",
+   "List the equipment and materials you need.",
+   "Choose the best knot for tying your hook to your line, and tie it.",
+   "Choose a rod and tackle and have an adult review your gear.",
+   "Fish for at least one hour following local rules and regulations."]],
+  ["champions-for-nature","Champions for Nature","e","E",[
+   "Explore the four parts of habitat: food, water, shelter, and space.",
+   "Choose a threatened or endangered animal for requirements 3 to 5.",
+   "Identify what makes an animal threatened or endangered.",
+   "Explore what caused your animal to become threatened or endangered.",
+   "Research current efforts to protect it.",
+   "Take part in a conservation service project."]],
+  ["chefs-knife","Chef's Knife","e","E",[
+   "Read, understand, and promise to follow the Cub Scout Knife Safety Rules.",
+   "Show the knife safety circle.",
+   "Show how to care for and safely use a kitchen knife.",
+   "Choose the right cooking knife and show proper slicing, dicing, and mincing."]],
+  ["earth-rocks","Earth Rocks!","e","E",[
+   "Examine sedimentary, igneous, and metamorphic rocks.",
+   "Find a rock, break it apart safely, and examine it.",
+   "Make a mineral test kit, test minerals on the Mohs scale, and use the rock cycle chart to talk about how hardness affects use.",
+   "Grow a crystal."]],
+  ["lets-camp","Let's Camp","e","E",[
+   "Plan and take part in a campout with your den, pack, or family.",
+   "On arrival, choose a good tent site.",
+   "Set up your tent without adult help.",
+   "Name a possible weather hazard where you live and what you would do if it happened on the campout.",
+   "Tie a bowline and explain when and why it is used.",
+   "Know the fire safety rules and use them to choose a safe campfire site.",
+   "Build a teepee fire lay with tinder, kindling, and fuel; if allowed, light it with an adult and put it out leaving little trace.",
+   "Say the Outdoor Code and Leave No Trace Principles for Kids from memory.",
+   "Afterward, share how you followed the Outdoor Code and Leave No Trace."]],
+  ["math-on-the-trail","Math on the Trail","e","E",[
+   "Find your walking pace over a quarter mile and estimate how long two miles will take.",
+   "Walk two miles and record your time.",
+   "Estimate how long a 20 mile, two day hike would take and list what you considered."]],
+  ["modular-design","Modular Design","e","E",[
+   "Learn what modular design is and name three things built with it.",
+   "Build a model from modular pieces without instructions.",
+   "Write step by step instructions for your model.",
+   "Have someone build the model from your instructions.",
+   "Build a different model from the same pieces.",
+   "With permission, watch a video of something built with modular design."]],
+  ["paddle-onward","Paddle Onward","e","E",[
+   "Pass the Scouting America swimmer test before requirements 5 to 9.",
+   "Choose a canoe, kayak, or stand up paddleboard for every requirement.",
+   "Review Safety Afloat.",
+   "Choose and correctly wear a properly sized life jacket.",
+   "Wearing a life jacket, jump feet first into water over your head and swim 25 feet.",
+   "Show how to get into and out of your craft safely.",
+   "Talk about what to do if your craft tips or you fall off.",
+   "Choose a correctly sized paddle and explore how the craft responds to it.",
+   "Paddle for at least 30 minutes."]],
+  ["pedal-away","Pedal Away","e","E",[
+   "Decide what to bring on a long ride and how to carry it safely.",
+   "Learn how multi gear bikes work and how they help riders.",
+   "Practice oiling a bike chain.",
+   "Choose a bike lock and show how to use it, secure your bike, and carry the lock while riding.",
+   "Plan a ride of at least five miles on a map.",
+   "Ride at least five miles with your den, pack, or family using the buddy system."]],
+  ["race-time","Race Time","e","E",[
+   "With an adult, build a Pinewood Derby car or a Raingutter Regatta boat.",
+   "Learn the race rules for your vehicle.",
+   "Explore how friction affects your vehicle.",
+   "Talk with your den about showing good sportsmanship.",
+   "Race in a Pinewood Derby or Raingutter Regatta."]],
+  ["summertime-fun","Summertime Fun","e","E",SUMMER],
+  ["tech-on-the-trail","Tech on the Trail","e","E",[
+   "Talk about how technology can keep you safe outdoors.",
+   "Explore GPS devices and learn to use one.",
+   "With an adult, plan a two mile trek with an online mapping tool.",
+   "Complete the two mile trek."]],
+  ["yo-yo","Yo-Yo","e","E",[
+   "Learn and always follow the yo-yo safety rules.",
+   "Find the right string length for you.",
+   "Explain why string length and position matter before you throw.",
+   "Show how to string a yo-yo and tie a slip knot.",
+   "Do the pendulum experiment and explain what changes with a longer string.",
+   "Show that you can wind a yo-yo properly.",
+   "Try the gravity pull, sleeper, and breakaway."]]
+ ]},
+ {id:"aol", name:"Arrow of Light", grade:"5th grade", color:"#2B3F96", url:"https://www.scouting.org/programs/cub-scouts/adventures/arrow-of-light/", adv:[
+  ["bobcat","Bobcat","r","C",[
+   "Form a patrol, choose a name, elect a patrol leader, and explain why the patrol method helps.",
+   "Get to know the members of your patrol.",
+   "Say the Scout Oath and Scout Law with your patrol.",
+   "Create a patrol Code of Conduct.",
+   "Show the Scouts BSA sign, salute, and handshake and explain when each is used.",
+   "Learn the Scouts BSA motto and slogan.",
+   "Visit a Scouts BSA troop with your patrol or a parent or legal guardian.",
+   "At home with a parent or legal guardian, complete the activities in "+PG+"."]],
+  ["outdoor-adventurer","Outdoor Adventurer","r","O",[
+   "Learn the Scout Basic Essentials.",
+   "Plan what to bring on an overnight campout, including shelter and sleeping gear, and how you will carry it.",
+   "Review the four points of the SAFE Checklist and plan how to apply them on the campout.",
+   "Find the campground and your campsite on a map.",
+   "Camp with your patrol or a Scouts BSA troop.",
+   "On arrival, help choose the kitchen, eating, tent, and fire areas and set up patrol gear before your own tent.",
+   "Explain and show how to keep food safe and the kitchen clean on the campout.",
+   "Afterward, talk with your patrol about what went well, what to change, and how you followed the Outdoor Code and Leave No Trace."],
+   {note:"Each requirement offers more than one activity; pick any one."}],
+  ["personal-fitness","Personal Fitness","r","F",[
+   "Plan a balanced camping meal and cook it with the gear you would use on a campout.",
+   "Explain physical fitness, track 30 minutes or more of daily activity for 14 days, and share whether you are keeping the fitness promise in the Scout Oath.",
+   "Be active for 30 minutes with your patrol, a younger den, or another person, including stretching and moving.",
+   "Review your Annual Health and Medical Record with a parent or legal guardian and talk about which activities you can join."]],
+  ["citizenship","Citizenship","r","Z",[
+   "Pick a community service project for your patrol or pack and plan it safely with the SAFE Checklist.",
+   "Give at least two hours of service in one or more projects."]],
+  ["first-aid","First Aid","r","S",[
+   "With permission from a parent or legal guardian, watch the Arrow of Light Protect Yourself Rules video.",
+   "Explain what to do when you find someone who needs first aid.",
+   "Show first aid for serious bleeding, heart attack or sudden cardiac arrest, stopped breathing, stroke, and poisoning.",
+   "Show how to help someone who is choking.",
+   "Show how to treat shock.",
+   "Show treatment for cuts and scratches, burns and scalds, bites and stings, and nosebleeds.",
+   "Put together a personal first aid kit and show how to use each item."]],
+  ["duty-to-god","Duty to God","r","R",[
+   "Talk with a parent or legal guardian about your family's faith, or one you choose, pick a value tied to the Scout Law, and discuss how each family member lives it.",
+   "Meet someone from a local faith-based group that helps people in crisis and learn who they serve and how.",
+   "Talk with a parent, legal guardian, or leader about what Duty to God means to you and how you live it each day."],RE],
+  ["champions-for-nature","Champions for Nature","e","E",[
+   "Identify foods grown or processed in your state.",
+   "Explain the benefits of buying locally grown or processed food.",
+   "Explore what a food desert is.",
+   "Explore what a food oasis is.",
+   "Learn ways people can cut food waste.",
+   "Take part in a conservation service project."]],
+  ["cycling","Cycling","e","E",[
+   "Decide what gear and supplies you need for a long ride.",
+   "Learn how multi gear bikes work and how they help riders.",
+   "Show how to oil a chain.",
+   "Choose a bike lock and show how to use it, secure your bike, and carry it while riding.",
+   "Fix a flat tire.",
+   "Plan a ride of at least 10 miles on a map with your patrol, pack, or family.",
+   "Ride at least 10 miles with your patrol, pack, or family using the buddy system."]],
+  ["engineer","Engineer","e","E",[
+   "Learn the focus, related sciences, and products of civil, electrical, and mechanical engineering.",
+   "Pick one of those fields for the remaining requirements.",
+   "Examine blueprints or specifications used in that field.",
+   "Pick a project you would like to build.",
+   "Build it using the engineering process."]],
+  ["estimations","Estimations","e","E",[
+   "Estimate food measurements.",
+   "Estimate the time of day.",
+   "Estimate the height of a distant object.",
+   "Estimate the distance between two points."]],
+  ["fishing","Fishing","e","E",[
+   "Plan a fishing trip: choose the place and the fish you want to catch.",
+   "Plan what you need with the SAFE Checklist.",
+   "Describe where your fish might be found.",
+   "List the equipment and materials you need.",
+   "Choose the best knot for tying your hook to your line, and tie it.",
+   "Choose your own rod and tackle and have an adult review it.",
+   "Fish for at least one hour following local rules and regulations."]],
+  ["high-tech-outdoors","High Tech Outdoors","e","E",[
+   "With an adult, check the forecast with a weather app or site for an outdoor activity and talk about how to prepare.",
+   "With an adult, find a knot app, pick a knot, and tie it.",
+   "Talk about how technology has improved camping gear.",
+   "Think of a way technology could improve gear for an outdoor activity you do."]],
+  ["into-the-wild","Into the Wild","e","E",[
+   "Visit a place with many wild animals, choose one, and watch how it behaves.",
+   "Make a model of its ecosystem.",
+   "Investigate how it lives alongside other animals.",
+   "Describe how people interact with its ecosystem.",
+   "Find out how wildlife management helps it."]],
+  ["into-the-woods","Into the Woods","e","E",[
+   "Visit an area with trees and plants, take a tree inventory, and choose one tree.",
+   "Find out whether it is deciduous or evergreen.",
+   "Find out whether it is native or introduced.",
+   "Find out how it copes with wildfire.",
+   "Learn how wildlife uses it."]],
+  ["knife-safety","Knife Safety","e","E",[
+   "Read, understand, and promise to follow the Cub Scout Knife Safety Rules.",
+   "Show the knife safety circle.",
+   "Show how to care for and safely use a knife.",
+   "Make something useful with a pocketknife on a campout.",
+   "Choose the right cooking knife and show slicing, chopping, and mincing."]],
+  ["paddle-craft","Paddle Craft","e","E",[
+   "Pass the Scouting America swimmer test before requirements 5 to 9.",
+   "Choose a canoe, kayak, or stand up paddleboard for every requirement.",
+   "Review Safety Afloat.",
+   "Identify and correctly wear a properly sized life jacket.",
+   "Wearing a life jacket, jump feet first into water over your head and swim 25 feet.",
+   "Talk about getting into and out of your craft safely.",
+   "Talk about what to do if your craft tips or you fall off.",
+   "Learn the power stroke and the sweep.",
+   "Paddle for at least 30 minutes."]],
+  ["race-time","Race Time","e","E",[
+   "With adult supervision, build a Pinewood Derby car or a Raingutter Regatta boat.",
+   "Learn the race rules for your vehicle.",
+   "Mentor a younger den getting ready for the race.",
+   "Talk with your patrol or den about showing good sportsmanship.",
+   "Race in a Pinewood Derby or Raingutter Regatta."]],
+  ["summertime-fun","Summertime Fun","e","E",SUMMER],
+  ["swimming","Swimming","e","E",[
+   "Review Safe Swim Defense.",
+   "Explain the order of rescue and show reach and throw rescues from land.",
+   "Attempt the Scouting America swimmer test.",
+   "Free swim for at least 30 minutes using the buddy system and staying in your ability group."],SWIM]
+ ]}
+];
+var CATALOG = deepFreeze(RAW.map(function(rk){
+  return {id:rk.id, name:rk.name, grade:rk.grade, color:rk.color, url:rk.url,
+    adventures: rk.adv.map(function(a, i){
+      var o = a[5] || {};
+      return {id:a[0], name:a[1], type:a[2]==="r"?"required":"elective", focus:a[3], order:i+1,
+        note:o.note||"", alts:(o.alts||[]).slice(), groups:(o.groups||[]).slice(),
+        reqs:a[4].map(function(t, j){ var g = o.reqGroups && o.reqGroups[j+1]; return g ? {n:String(j+1), text:t, group:g} : {n:String(j+1), text:t}; })};
+    })};
+}));
+function deepFreeze(o){ Object.keys(o).forEach(function(k){ if(o[k] && typeof o[k]==="object") deepFreeze(o[k]); }); return Object.freeze(o); }
+
+
+/* ---------- utilities ---------- */
+var KEY = "appaday167", VERSION = 1;
+var ALT_LABEL = {religiousEmblem:"Earned a Religious Emblem", swimmerTest:"Passed the Scouting America swimmer test", swimLessons:"Completed swim lessons"};
+var ALT_SHORT = {religiousEmblem:"Religious Emblem", swimmerTest:"Swimmer test", swimLessons:"Swim lessons"};
+var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function pad(n){ return (n < 10 ? "0" : "") + n; }
+function today(){ var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+function isDate(s){ return typeof s === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s); }
+function fmtDate(s){ if (!isDate(s)) return ""; var p = s.split("-"); var t = MONTHS[+p[1] - 1] + " " + (+p[2]); return p[0] === today().slice(0, 4) ? t : t + ", " + p[0]; }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+function uid(){ return "s" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function rankById(id){ for (var i = 0; i < CATALOG.length; i++) if (CATALOG[i].id === id) return CATALOG[i]; return null; }
+function rankIndex(id){ for (var i = 0; i < CATALOG.length; i++) if (CATALOG[i].id === id) return i; return -1; }
+function advById(rank, id){ for (var i = 0; i < rank.adventures.length; i++) if (rank.adventures[i].id === id) return rank.adventures[i]; return null; }
+function ckey(r, a, n){ return r + "." + a + "." + n; }
+function akey(r, a){ return r + "." + a; }
+function clearKids(el){ while (el.firstChild) el.removeChild(el.firstChild); }
+
+/* ---------- pure progress logic ---------- */
+function tally(rankId, adv, scout){
+  var checks = scout.checks || {}, met = 0, total = 0, dates = [];
+  adv.reqs.forEach(function(r){
+    if (r.group) return;
+    total++;
+    var c = checks[ckey(rankId, adv.id, r.n)];
+    if (c) { met++; dates.push(c.date); }
+  });
+  adv.groups.forEach(function(g){
+    var got = [];
+    adv.reqs.forEach(function(r){ if (r.group === g.id) { var c = checks[ckey(rankId, adv.id, r.n)]; if (c) got.push(c.date); } });
+    got.sort();
+    met += Math.min(got.length, g.count); total += g.count;
+    if (got.length >= g.count) dates.push(got[g.count - 1]); else dates = dates.concat(got);
+  });
+  dates.sort();
+  return {met:met, total:total, latest:dates.length ? dates[dates.length - 1] : ""};
+}
+function altFor(rankId, adv, scout){ var a = (scout.alts || {})[akey(rankId, adv.id)]; return a && adv.alts.indexOf(a.type) >= 0 ? a : null; }
+function requirementsMet(rankId, adv, scout){
+  if (altFor(rankId, adv, scout)) return true;
+  var t = tally(rankId, adv, scout); return t.total > 0 && t.met === t.total;
+}
+function adventureProgress(rankId, adv, scout){
+  if (altFor(rankId, adv, scout)) return 1;
+  var t = tally(rankId, adv, scout); return t.total ? t.met / t.total : 0;
+}
+function adventureDate(rankId, adv, scout){
+  var t = tally(rankId, adv, scout), a = altFor(rankId, adv, scout);
+  if (t.total && t.met === t.total) return a && a.date < t.latest ? a.date : t.latest;
+  return a ? a.date : "";
+}
+function electiveSlots(rank, scout){
+  var pins = ((scout.chosenElectives || {})[rank.id]) || [];
+  var els = rank.adventures.filter(function(a){ return a.type === "elective"; }).map(function(a){
+    return {adv:a, met:requirementsMet(rank.id, a, scout), p:adventureProgress(rank.id, a, scout), pin:pins.indexOf(a.id)};
+  });
+  els.sort(function(x, y){
+    if (x.met !== y.met) return x.met ? -1 : 1;
+    var xp = x.pin >= 0, yp = y.pin >= 0;
+    if (xp !== yp) return xp ? -1 : 1;
+    if (xp && yp && x.pin !== y.pin) return x.pin - y.pin;
+    if (x.p !== y.p) return y.p - x.p;
+    return x.adv.order - y.adv.order;
+  });
+  return els.slice(0, 2);
+}
+function rankProgress(rank, scout){
+  var req = rank.adventures.filter(function(a){ return a.type === "required"; });
+  var slots = electiveSlots(rank, scout);
+  var sum = 0;
+  req.forEach(function(a){ sum += adventureProgress(rank.id, a, scout); });
+  slots.forEach(function(s){ sum += s.p; });
+  var reqMet = req.filter(function(a){ return requirementsMet(rank.id, a, scout); }).length;
+  var elMet = rank.adventures.filter(function(a){ return a.type === "elective" && requirementsMet(rank.id, a, scout); }).length;
+  return {fraction:sum / (req.length + 2), reqMet:reqMet, reqTotal:req.length, elMet:Math.min(elMet, 2), elMetAll:elMet, complete:reqMet === req.length && elMet >= 2};
+}
+function queueItems(scout){
+  var out = [];
+  CATALOG.forEach(function(rank){
+    rank.adventures.forEach(function(adv){
+      var items = [];
+      var a = (scout.alts || {})[akey(rank.id, adv.id)];
+      if (a && !a.entered) items.push({kind:"alt", key:akey(rank.id, adv.id), label:ALT_SHORT[a.type] || a.type, date:a.date});
+      adv.reqs.forEach(function(r){
+        var c = (scout.checks || {})[ckey(rank.id, adv.id, r.n)];
+        if (c && !c.entered) items.push({kind:"req", key:ckey(rank.id, adv.id, r.n), n:r.n, label:r.text, date:c.date});
+      });
+      if (items.length) out.push({rank:rank, adv:adv, items:items});
+    });
+  });
+  return out;
+}
+function queueCount(scout){ var n = 0; queueItems(scout).forEach(function(g){ n += g.items.length; }); return n; }
+
+/* ---------- state and storage ---------- */
+var state = {version:VERSION, activeScoutId:null, scouts:[]};
+var storageOK = true;
+var ui = {view:"summary", rankId:null, advId:null};
+function validScout(s){
+  return s && typeof s === "object" && typeof s.id === "string" && typeof s.name === "string" && rankById(s.rankId) &&
+    s.checks && typeof s.checks === "object" && !Array.isArray(s.checks);
+}
+function cleanScout(s){
+  var o = {id:s.id, name:s.name.slice(0, 40), rankId:s.rankId, checks:{}, alts:{}, chosenElectives:{}};
+  Object.keys(s.checks).forEach(function(k){ var c = s.checks[k]; if (c && isDate(c.date)) o.checks[k] = {date:c.date, entered:!!c.entered}; });
+  var al = s.alts && typeof s.alts === "object" ? s.alts : {};
+  Object.keys(al).forEach(function(k){ var a = al[k]; if (a && ALT_LABEL[a.type] && isDate(a.date)) o.alts[k] = {type:a.type, date:a.date, entered:!!a.entered}; });
+  var ce = s.chosenElectives && typeof s.chosenElectives === "object" ? s.chosenElectives : {};
+  Object.keys(ce).forEach(function(k){ if (rankById(k) && Array.isArray(ce[k])) o.chosenElectives[k] = ce[k].filter(function(x){ return typeof x === "string"; }).slice(0, 2); });
+  return o;
+}
+function validState(s){ return s && typeof s === "object" && Array.isArray(s.scouts) && s.scouts.every(validScout); }
+function load(){
+  var raw = null;
+  try { raw = window.localStorage.getItem(KEY); } catch (e) { storageOK = false; }
+  if (!raw) return;
+  try {
+    var s = JSON.parse(raw);
+    if (validState(s)) { state = {version:VERSION, activeScoutId:s.activeScoutId, scouts:s.scouts.map(cleanScout)}; }
+  } catch (e) {}
+  if (!scoutById(state.activeScoutId) && state.scouts.length) state.activeScoutId = state.scouts[0].id;
+}
+function save(){
+  try { window.localStorage.setItem(KEY, JSON.stringify(state)); }
+  catch (e) { storageOK = false; }
+  document.getElementById("banner").hidden = storageOK;
+}
+function scoutById(id){ for (var i = 0; i < state.scouts.length; i++) if (state.scouts[i].id === id) return state.scouts[i]; return null; }
+function active(){ return scoutById(state.activeScoutId); }
+
+/* ---------- toast with undo ---------- */
+var toastTimer = null, undoFn = null;
+function toast(msg, undo){
+  undoFn = undo || null;
+  document.getElementById("toastMsg").textContent = msg;
+  document.getElementById("toastUndo").hidden = !undo;
+  var t = document.getElementById("toast"); t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove("show"); undoFn = null; }, undo ? 6000 : 2600);
+}
+
+/* ---------- sheet and dialogs ---------- */
+var sheetMode = null;
+function openSheet(html, mode){ var sh = document.getElementById("sheet"); sh.innerHTML = html; sheetMode = mode; document.getElementById("scrim").classList.add("open"); var f = sh.querySelector("[autofocus]"); if (f) f.focus(); }
+function closeSheet(){ document.getElementById("scrim").classList.remove("open"); clearKids(document.getElementById("sheet")); sheetMode = null; dialogCb = null; }
+var dialogCb = null;
+function confirmBox(msg, okLabel, cb, danger){
+  dialogCb = cb;
+  openSheet('<div class="dialog"><div class="sheethead"><h2>Please confirm</h2></div><p class="msg">' + esc(msg) + '</p>' +
+    '<div class="btnrow"><button class="btn ' + (danger ? "danger" : "primary") + '" data-act="dialog-ok">' + esc(okLabel) + '</button><button class="btn" data-act="sheet-close">Cancel</button></div></div>', "dialog");
+}
+
+/* ---------- rendering ---------- */
+function ringSvg(p, ok){
+  var r = 18, c = 2 * Math.PI * r, off = c * (1 - p);
+  return '<svg class="ring' + (ok ? " ok" : "") + '" viewBox="0 0 44 44" aria-hidden="true"><circle class="bg" cx="22" cy="22" r="' + r + '"/><circle class="fg" cx="22" cy="22" r="' + r +
+    '" stroke-dasharray="' + c.toFixed(2) + '" stroke-dashoffset="' + off.toFixed(2) + '"/><text x="22" y="26" text-anchor="middle">' + (ok ? "&#10003;" : Math.round(p * 100)) + '</text></svg>';
+}
+function render(){
+  renderChips(); renderSeg();
+  var v = document.getElementById("view"), s = active();
+  if (!s) { v.innerHTML = '<div class="card empty"><div class="big">Track every Cub Scout rank</div><p class="muted">Add a Scout to start checking off requirements from Lion through Arrow of Light. Everything stays on this device.</p><button class="btn primary" data-act="settings-add">Add your first Scout</button></div>'; return; }
+  if (!ui.rankId) ui.rankId = s.rankId;
+  var rank = rankById(ui.rankId); v.style.setProperty("--rk", rank.color);
+  if (ui.view === "summary") v.innerHTML = viewSummary();
+  else if (ui.view === "rank") v.innerHTML = viewRank(s, rank);
+  else if (ui.view === "adventure") v.innerHTML = viewAdventure(s, rank);
+  else v.innerHTML = viewQueue(s);
+}
+function renderChips(){
+  var h = state.scouts.map(function(s){
+    return '<button class="chip" data-act="scout" data-id="' + esc(s.id) + '" aria-pressed="' + (s.id === state.activeScoutId) + '"><span class="dot" style="background:' + rankById(s.rankId).color + '"></span>' + esc(s.name) + '</button>';
+  }).join("");
+  document.getElementById("chips").innerHTML = h + '<button class="chip add" data-act="settings-add">+ Scout</button>';
+}
+function renderSeg(){
+  var s = active(), q = s ? queueCount(s) : 0;
+  Array.prototype.forEach.call(document.querySelectorAll("#seg button"), function(b){
+    b.setAttribute("aria-selected", b.getAttribute("data-v") === ui.view);
+    if (b.getAttribute("data-v") === "queue") b.innerHTML = "Queue" + (q ? '<span class="badge">' + q + "</span>" : "");
+  });
+}
+function viewSummary(){
+  return '<div class="stack">' + state.scouts.map(function(s){
+    var rank = rankById(s.rankId), rp = rankProgress(rank, s), q = queueCount(s);
+    var minis = CATALOG.map(function(r){ var p = rankProgress(r, s); return '<div class="mini"><div class="bar" style="--rk:' + r.color + '"><i style="width:' + Math.round(p.fraction * 100) + '%"></i></div>' + esc(r.id === "aol" ? "AOL" : r.name) + '</div>'; }).join("");
+    return '<button class="card scoutcard" data-act="open-scout" data-id="' + esc(s.id) + '" style="--rk:' + rank.color + '"><div class="row"><span class="name">' + esc(s.name) + '</span><span class="rankbadge">' + esc(rank.name) + ' den</span></div>' +
+      '<div class="row small muted" style="margin:10px 0 6px"><span>' + rp.reqMet + ' of ' + rp.reqTotal + ' required, ' + rp.elMet + ' of 2 electives</span>' + (rp.complete ? '<span class="stamp">Complete</span>' : '<span>' + Math.round(rp.fraction * 100) + '%</span>') + '</div>' +
+      '<div class="bar"><i style="width:' + Math.round(rp.fraction * 100) + '%"></i></div>' +
+      '<div class="small" style="margin-top:10px;color:' + (q ? "var(--warn)" : "var(--ok)") + '">' + (q ? q + " item" + (q === 1 ? "" : "s") + " waiting for Scoutbook" : "Scoutbook is up to date") + '</div>' +
+      '<div class="minis">' + minis + '</div></button>';
+  }).join("") + '</div>';
+}
+function advCard(s, rank, a, withPin){
+  var p = adventureProgress(rank.id, a, s), met = requirementsMet(rank.id, a, s), d = met ? adventureDate(rank.id, a, s) : "";
+  var alt = altFor(rank.id, a, s);
+  var sub = met ? "Complete " + fmtDate(d) + (alt ? " (" + ALT_SHORT[alt.type] + ")" : "") : tally(rank.id, a, s).met + " of " + tally(rank.id, a, s).total + " requirements";
+  var card = '<button class="adv' + (met ? " done" : "") + '" data-act="open-adv" data-id="' + a.id + '">' + ringSvg(p, met) + '<span class="main"><span class="nm">' + esc(a.name) + '</span><span class="sub" style="display:block">' + esc(sub) + '</span></span></button>';
+  if (!withPin) return card;
+  var pins = (s.chosenElectives[rank.id] || []), on = pins.indexOf(a.id) >= 0;
+  return '<div class="advwrap">' + card + '<button class="pin" data-act="pin" data-id="' + a.id + '" aria-pressed="' + on + '" aria-label="' + (on ? "Unpin " : "Pin ") + esc(a.name) + '"><svg viewBox="0 0 24 24" fill="' + (on ? "currentColor" : "none") + '" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7-6.2-3.6-6.2 3.6 1.4-7L2 9.3l7-.8z"/></svg></button></div>';
+}
+function viewRank(s, rank){
+  var rp = rankProgress(rank, s);
+  var pick = '<div class="rankpick" role="group" aria-label="Rank">' + CATALOG.map(function(r){ return '<button style="--c:' + r.color + '" data-act="rank" data-id="' + r.id + '" aria-pressed="' + (r.id === rank.id) + '">' + esc(r.name) + '</button>'; }).join("") + '</div>';
+  var head = '<div class="card rankhead" style="margin-top:12px"><div class="top"><div><h2>' + esc(rank.name) + '</h2><div class="small muted">' + esc(rank.grade) + ' &middot; six required plus two electives</div></div>' + (rp.complete ? '<span class="stamp">Complete</span>' : '<span class="rankbadge">' + Math.round(rp.fraction * 100) + '%</span>') + '</div>' +
+    '<div class="bar" style="margin:12px 0 8px"><i style="width:' + Math.round(rp.fraction * 100) + '%"></i></div><div class="small muted">' + rp.reqMet + ' of ' + rp.reqTotal + ' required adventures, ' + rp.elMetAll + ' elective' + (rp.elMetAll === 1 ? "" : "s") + ' complete</div>' +
+    '<div class="btnrow">' + (s.rankId !== rank.id ? '<button class="btn rk" data-act="set-rank" data-id="' + rank.id + '">Move ' + esc(s.name) + ' to the ' + esc(rank.name) + ' den</button>' : '') +
+    '<a class="btn ghost" href="' + rank.url + '" target="_blank" rel="noopener">Official requirements</a></div></div>';
+  var req = rank.adventures.filter(function(a){ return a.type === "required"; }).map(function(a){ return '<h3>' + esc(FOCI[a.focus]) + '</h3>' + advCard(s, rank, a, false); }).join("");
+  var el = rank.adventures.filter(function(a){ return a.type === "elective"; }).map(function(a){ return advCard(s, rank, a, true); }).join("");
+  return pick + head + '<div>' + req + '</div><h3>Electives &middot; pin the two you are working on</h3><div class="advlist">' + el + '</div>';
+}
+function viewAdventure(s, rank){
+  var a = ui.advId ? advById(rank, ui.advId) : null;
+  if (!a) return '<div class="card empty"><div class="big">Pick an adventure</div><p class="muted">Open the Rank tab and tap any adventure to check off its requirements.</p><button class="btn primary" data-act="view" data-v="rank">Go to ' + esc(rank.name) + '</button></div>';
+  var met = requirementsMet(rank.id, a, s), p = adventureProgress(rank.id, a, s), t = tally(rank.id, a, s), alt = altFor(rank.id, a, s), td = today();
+  var h = '<button class="btn ghost" data-act="view" data-v="rank">&larr; ' + esc(rank.name) + ' adventures</button>' +
+    '<div class="card rankhead" style="margin-top:8px"><div class="top"><div><h2>' + esc(a.name) + '</h2><div class="small muted">' + esc(rank.name) + ' &middot; ' + (a.type === "required" ? "Required, " + esc(FOCI[a.focus]) : "Elective") + '</div></div>' + ringSvg(p, met) + '</div>' +
+    '<div class="small" style="margin-top:8px;color:' + (met ? "var(--ok)" : "var(--ink-2)") + '">' + (met ? "Adventure complete " + fmtDate(adventureDate(rank.id, a, s)) : t.met + " of " + t.total + " requirements done") + '</div>';
+  if (a.note) h += '<div class="small muted" style="margin-top:6px">' + esc(a.note) + '</div>';
+  if (a.alts.length) {
+    h += '<div class="alts">';
+    a.alts.forEach(function(type){
+      var on = alt && alt.type === type;
+      h += '<div class="altrow' + (on ? " on" : "") + '"><span class="lbl">' + (on ? "" : "Or: ") + esc(ALT_LABEL[type]) + (on && alt.entered ? ' <span class="tag">In Scoutbook</span>' : '') + '</span>' +
+        (on ? '<label class="datechip">' + fmtDate(alt.date) + '<input type="date" aria-label="Date earned" data-act="alt-date" value="' + alt.date + '" max="' + td + '"></label><button class="btn ghost" data-act="alt-clear">Clear</button>'
+            : '<button class="btn" data-act="alt-set" data-type="' + type + '">Record</button>') + '</div>';
+    });
+    h += '</div>';
+  }
+  h += '</div>';
+  function reqRow(r){
+    var c = s.checks[ckey(rank.id, a.id, r.n)];
+    return '<div class="req' + (c ? " on" : "") + '"><button class="tap" data-act="toggle" data-n="' + r.n + '" aria-pressed="' + !!c + '"><span class="box"></span><span class="n">' + esc(r.n) + '</span><span class="t">' + esc(r.text) + '</span></button>' +
+      (c ? '<div class="side"><label class="datechip">' + fmtDate(c.date) + '<input type="date" aria-label="Date completed for requirement ' + esc(r.n) + '" data-act="req-date" data-n="' + r.n + '" value="' + c.date + '" max="' + td + '"></label>' + (c.entered ? '<span class="tag">In Scoutbook</span>' : '') + '</div>' : '') + '</div>';
+  }
+  var loose = a.reqs.filter(function(r){ return !r.group; });
+  h += '<h3>Requirements</h3><div class="reqs">' + loose.map(reqRow).join("") + '</div>';
+  a.groups.forEach(function(g){
+    var rs = a.reqs.filter(function(r){ return r.group === g.id; });
+    var got = rs.filter(function(r){ return s.checks[ckey(rank.id, a.id, r.n)]; }).length;
+    h += '<div class="grouphead"><span>' + esc(g.label) + '</span><span style="color:' + (got >= g.count ? "var(--ok)" : "var(--ink-3)") + '">' + Math.min(got, g.count) + ' of ' + g.count + '</span></div><div class="reqs">' + rs.map(reqRow).join("") + '</div>';
+  });
+  return h;
+}
+function viewQueue(s){
+  var groups = queueItems(s);
+  if (!groups.length) return '<div class="card empty"><div class="big">All caught up</div><p class="muted">Every completed requirement for ' + esc(s.name) + ' is marked as entered in Scoutbook.</p></div>';
+  var h = '<p class="small muted" style="margin-top:0">Items in catalog order, ready to copy into Scoutbook. Mark them entered as you go.</p>';
+  var lastRank = null;
+  groups.forEach(function(g){
+    if (g.rank.id !== lastRank) { h += '<h3 style="color:' + g.rank.color + '">' + esc(g.rank.name) + '</h3>'; lastRank = g.rank.id; }
+    var met = requirementsMet(g.rank.id, g.adv, s);
+    h += '<div class="card qadv" style="--rk:' + g.rank.color + '"><div class="hd"><div><b>' + esc(g.adv.name) + '</b>' + (met ? ' <span class="tag">Adventure complete ' + fmtDate(adventureDate(g.rank.id, g.adv, s)) + '</span>' : '') + '</div>' +
+      '<button class="btn" data-act="enter-adv" data-rank="' + g.rank.id + '" data-id="' + g.adv.id + '">Mark all entered</button></div>';
+    g.items.forEach(function(it){
+      h += '<div class="qitem"><div class="q">' + (it.kind === "req" ? '<b>Req ' + esc(it.n) + '</b>' + esc(it.label) : '<b>Alternate</b>' + esc(it.label)) + '<div class="xs muted">' + fmtDate(it.date) + '</div></div><button class="btn" data-act="enter-item" data-kind="' + it.kind + '" data-key="' + esc(it.key) + '">Entered</button></div>';
+    });
+    h += '</div>';
+  });
+  return h;
+}
+
+/* ---------- settings ---------- */
+function rankOptions(sel){ return CATALOG.map(function(r){ return '<option value="' + r.id + '"' + (r.id === sel ? " selected" : "") + '>' + esc(r.name) + '</option>'; }).join(""); }
+function openSettings(focusAdd){
+  var s = active();
+  var rows = state.scouts.map(function(x){
+    return '<div class="srow"><div class="two"><div class="field" style="margin:0"><label for="nm-' + esc(x.id) + '">Name</label><input class="inp" id="nm-' + esc(x.id) + '" data-act="rename" data-id="' + esc(x.id) + '" value="' + esc(x.name) + '" maxlength="40"></div>' +
+      '<div class="field" style="margin:0"><label for="rk-' + esc(x.id) + '">Den this year</label><select class="inp" id="rk-' + esc(x.id) + '" data-act="scout-rank" data-id="' + esc(x.id) + '">' + rankOptions(x.rankId) + '</select></div></div>' +
+      '<button class="btn danger" data-act="remove-scout" data-id="' + esc(x.id) + '">Remove</button></div>';
+  }).join("");
+  var h = '<div class="sheethead"><h2>Settings</h2><button class="btn ghost" data-act="sheet-close">Done</button></div>' +
+    '<h3>Scouts</h3>' + (rows || '<p class="small muted">No Scouts yet.</p>') +
+    '<div class="card" style="margin-top:10px"><b>Add a Scout</b><div class="field"><label for="newName">Name</label><input class="inp" id="newName" maxlength="40" placeholder="First name"' + (focusAdd ? " autofocus" : "") + '></div>' +
+    '<div class="field"><label for="newRank">Den this year</label><select class="inp" id="newRank">' + rankOptions("lion") + '</select></div><div class="btnrow"><button class="btn primary" data-act="add-scout">Add Scout</button></div></div>' +
+    '<h3>Backup</h3><p class="small muted">Saved on this device only. Export a backup now and then, and import it on another device or browser.</p>' +
+    '<div class="btnrow"><button class="btn" data-act="export">Export backup</button><button class="btn" data-act="import">Import backup</button></div>';
+  if (s) h += '<h3>Reset</h3><p class="small muted">Clears every check, alternate, and pin for ' + esc(s.name) + '. Type the name to confirm.</p><div class="field"><label for="resetName">Scout name</label><input class="inp" id="resetName" autocomplete="off" data-act="reset-type"></div><div class="btnrow"><button class="btn danger" id="resetBtn" data-act="reset" disabled>Reset ' + esc(s.name) + '</button></div>';
+  openSheet(h, "settings");
+}
+
+/* ---------- export and import ---------- */
+function exportData(){
+  var blob = new Blob([JSON.stringify({app:"appaday167", version:VERSION, exported:today(), activeScoutId:state.activeScoutId, scouts:state.scouts}, null, 2)], {type:"application/json"});
+  var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "appaday167-backup-" + today() + ".json";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1500);
+  toast("Backup downloaded");
+}
+var pendingImport = null;
+function handleImport(text){
+  var data;
+  try { data = JSON.parse(text); } catch (e) { toast("That file is not valid JSON"); return; }
+  if (!validState(data)) { toast("That file is not an AppADay 167 backup"); return; }
+  pendingImport = {activeScoutId:data.activeScoutId, scouts:data.scouts.map(cleanScout)};
+  var nc = 0, na = 0;
+  pendingImport.scouts.forEach(function(x){ nc += Object.keys(x.checks).length; na += Object.keys(x.alts).length; });
+  openSheet('<div class="sheethead"><h2>Import backup</h2></div><p class="msg">Found ' + pendingImport.scouts.length + ' Scout' + (pendingImport.scouts.length === 1 ? "" : "s") + ', ' + nc + ' checked requirement' + (nc === 1 ? "" : "s") + ', and ' + na + ' alternate' + (na === 1 ? "" : "s") + ' (' + esc(pendingImport.scouts.map(function(x){ return x.name; }).join(", ")) + ').</p>' +
+    '<p class="small muted">Replace swaps everything here for the backup. Merge adds the backup to what is here, matching Scouts by name, keeping the earlier date for any item in both, and keeping an item entered if either copy says so.</p>' +
+    '<div class="btnrow"><button class="btn primary" data-act="import-replace">Replace</button><button class="btn" data-act="import-merge">Merge</button><button class="btn ghost" data-act="sheet-close">Cancel</button></div>', "import");
+}
+function mergeItem(a, b){ if (!a) return b; if (!b) return a; var keep = b.date < a.date ? b : a; var o = JSON.parse(JSON.stringify(keep)); o.entered = !!(a.entered || b.entered); return o; }
+function mergeState(cur, inc){
+  inc.scouts.forEach(function(x){
+    var m = null;
+    cur.scouts.forEach(function(y){ if (!m && (y.id === x.id || y.name.trim().toLowerCase() === x.name.trim().toLowerCase())) m = y; });
+    if (!m) { cur.scouts.push(x); return; }
+    Object.keys(x.checks).forEach(function(k){ m.checks[k] = mergeItem(m.checks[k], x.checks[k]); });
+    Object.keys(x.alts).forEach(function(k){ m.alts[k] = mergeItem(m.alts[k], x.alts[k]); });
+    Object.keys(x.chosenElectives).forEach(function(r){ var u = (m.chosenElectives[r] || []).slice(); x.chosenElectives[r].forEach(function(e){ if (u.indexOf(e) < 0) u.push(e); }); m.chosenElectives[r] = u.slice(0, 2); });
+    if (rankIndex(x.rankId) > rankIndex(m.rankId)) m.rankId = x.rankId;
+  });
+  if (!scoutById(cur.activeScoutId) && cur.scouts.length) cur.activeScoutId = cur.scouts[0].id;
+  return cur;
+}
+
+/* ---------- actions ---------- */
+function setChecked(s, rank, a, n, on){
+  var k = ckey(rank.id, a.id, n);
+  if (on) s.checks[k] = {date:today(), entered:false}; else delete s.checks[k];
+}
+function commit(){ save(); render(); }
+function act(el, ev){
+  var act = el.getAttribute("data-act"), s = active(), rank = ui.rankId ? rankById(ui.rankId) : null;
+  var a = rank && ui.advId ? advById(rank, ui.advId) : null;
+  switch (act) {
+    case "view": ui.view = el.getAttribute("data-v"); if (ui.view === "rank" && s && !ui.rankId) ui.rankId = s.rankId; render(); window.scrollTo(0, 0); break;
+    case "scout": state.activeScoutId = el.getAttribute("data-id"); ui.rankId = active().rankId; ui.advId = null; if (ui.view === "adventure") ui.view = "rank"; commit(); break;
+    case "open-scout": state.activeScoutId = el.getAttribute("data-id"); ui.rankId = active().rankId; ui.advId = null; ui.view = "rank"; commit(); window.scrollTo(0, 0); break;
+    case "rank": ui.rankId = el.getAttribute("data-id"); ui.advId = null; render(); break;
+    case "set-rank": s.rankId = el.getAttribute("data-id"); commit(); toast(s.name + " is now in the " + rankById(s.rankId).name + " den"); break;
+    case "open-adv": ui.advId = el.getAttribute("data-id"); ui.view = "adventure"; render(); window.scrollTo(0, 0); break;
+    case "pin":
+      var pins = (s.chosenElectives[rank.id] || []).slice(), id = el.getAttribute("data-id"), i = pins.indexOf(id);
+      if (i >= 0) pins.splice(i, 1); else { if (pins.length >= 2) { toast("Two electives are pinned. Unpin one first."); return; } pins.push(id); }
+      s.chosenElectives[rank.id] = pins; commit(); break;
+    case "toggle":
+      var n = el.getAttribute("data-n"), k = ckey(rank.id, a.id, n), c = s.checks[k];
+      if (c && c.entered) { confirmBox("Requirement " + n + " of " + a.name + " is already marked as entered in Scoutbook. Uncheck it anyway?", "Uncheck", function(){ setChecked(s, rank, a, n, false); commit(); }, true); return; }
+      var wasMet = requirementsMet(rank.id, a, s);
+      setChecked(s, rank, a, n, !c); commit();
+      if (!wasMet && requirementsMet(rank.id, a, s)) toast(a.name + " complete" + (rankProgress(rank, s).complete ? ". " + rank.name + " rank complete!" : ""));
+      break;
+    case "alt-set": s.alts[akey(rank.id, a.id)] = {type:el.getAttribute("data-type"), date:today(), entered:false}; commit(); toast(a.name + " complete by alternate"); break;
+    case "alt-clear":
+      var ak = akey(rank.id, a.id), al = s.alts[ak];
+      var doClear = function(){ delete s.alts[ak]; commit(); };
+      if (al && al.entered) { confirmBox("This alternate is already marked as entered in Scoutbook. Clear it anyway?", "Clear", doClear, true); return; }
+      doClear(); break;
+    case "enter-item":
+      var kind = el.getAttribute("data-kind"), key = el.getAttribute("data-key"), store = kind === "req" ? s.checks : s.alts;
+      if (store[key]) { store[key].entered = true; commit(); toast("Marked entered", function(){ if (store[key]) store[key].entered = false; commit(); }); }
+      break;
+    case "enter-adv":
+      var rk = el.getAttribute("data-rank"), ad = el.getAttribute("data-id"), changed = [];
+      Object.keys(s.checks).forEach(function(k2){ if (k2.indexOf(rk + "." + ad + ".") === 0 && !s.checks[k2].entered) { s.checks[k2].entered = true; changed.push(s.checks[k2]); } });
+      var ak2 = akey(rk, ad); if (s.alts[ak2] && !s.alts[ak2].entered) { s.alts[ak2].entered = true; changed.push(s.alts[ak2]); }
+      commit(); toast(changed.length + " item" + (changed.length === 1 ? "" : "s") + " marked entered", function(){ changed.forEach(function(x){ x.entered = false; }); commit(); });
+      break;
+    case "undo": if (undoFn) { var f = undoFn; undoFn = null; f(); } document.getElementById("toast").classList.remove("show"); break;
+    case "settings": openSettings(false); break;
+    case "settings-add": openSettings(true); break;
+    case "sheet-close": closeSheet(); break;
+    case "dialog-ok": var cb = dialogCb; closeSheet(); if (cb) cb(); break;
+    case "add-scout":
+      var nm = document.getElementById("newName").value.trim(), nr = document.getElementById("newRank").value;
+      if (!nm) { toast("Enter a name first"); return; }
+      var ns = {id:uid(), name:nm.slice(0, 40), rankId:nr, checks:{}, alts:{}, chosenElectives:{}};
+      state.scouts.push(ns); state.activeScoutId = ns.id; ui.rankId = nr; ui.advId = null; ui.view = "rank"; save(); render(); openSettings(false); toast(nm + " added");
+      break;
+    case "remove-scout":
+      var rid = el.getAttribute("data-id"), rs = scoutById(rid);
+      confirmBox("Remove " + rs.name + " and all of their progress? Export a backup first if you might want it back.", "Remove", function(){
+        state.scouts = state.scouts.filter(function(x){ return x.id !== rid; });
+        if (state.activeScoutId === rid) { state.activeScoutId = state.scouts.length ? state.scouts[0].id : null; ui.rankId = active() ? active().rankId : null; ui.advId = null; ui.view = "summary"; }
+        commit(); openSettings(false);
+      }, true); break;
+    case "export": exportData(); break;
+    case "import": document.getElementById("importFile").click(); break;
+    case "import-replace":
+      state = {version:VERSION, activeScoutId:pendingImport.activeScoutId, scouts:pendingImport.scouts};
+      if (!pendingImport.scouts.some(function(x){ return x.id === state.activeScoutId; })) state.activeScoutId = pendingImport.scouts.length ? pendingImport.scouts[0].id : null;
+      pendingImport = null; ui = {view:"summary", rankId:null, advId:null}; closeSheet(); commit(); toast("Backup imported"); break;
+    case "import-merge": state = mergeState(state, pendingImport); pendingImport = null; ui = {view:"summary", rankId:null, advId:null}; closeSheet(); commit(); toast("Backup merged"); break;
+    case "reset":
+      if (document.getElementById("resetName").value.trim().toLowerCase() !== s.name.trim().toLowerCase()) return;
+      s.checks = {}; s.alts = {}; s.chosenElectives = {}; closeSheet(); commit(); toast(s.name + " reset"); break;
+  }
+}
+document.addEventListener("click", function(ev){
+  var el = ev.target.closest("[data-act]");
+  if (!el || el.tagName === "INPUT" || el.tagName === "SELECT") return;
+  act(el, ev);
+});
+document.getElementById("scrim").addEventListener("click", function(ev){ if (ev.target.id === "scrim") closeSheet(); });
+document.addEventListener("keydown", function(ev){ if (ev.key === "Escape" && sheetMode) closeSheet(); });
+document.addEventListener("input", function(ev){
+  var el = ev.target, a = el.getAttribute("data-act");
+  if (a === "reset-type") { var s = active(); document.getElementById("resetBtn").disabled = el.value.trim().toLowerCase() !== s.name.trim().toLowerCase(); }
+});
+document.addEventListener("change", function(ev){
+  var el = ev.target, a = el.getAttribute("data-act"), s = active();
+  if (a === "rename") { var x = scoutById(el.getAttribute("data-id")), v = el.value.trim(); if (x && v) { x.name = v.slice(0, 40); save(); render(); } else el.value = x.name; }
+  else if (a === "scout-rank") { var y = scoutById(el.getAttribute("data-id")); y.rankId = el.value; if (y === s) { ui.rankId = y.rankId; ui.advId = null; } save(); render(); }
+  else if (a === "req-date" || a === "alt-date") {
+    var v2 = el.value; if (!isDate(v2) || v2 > today()) { render(); return; }
+    var rank = rankById(ui.rankId), adv = advById(rank, ui.advId);
+    var rec = a === "req-date" ? s.checks[ckey(rank.id, adv.id, el.getAttribute("data-n"))] : s.alts[akey(rank.id, adv.id)];
+    if (rec) { rec.date = v2; commit(); }
+  }
+  else if (el.id === "importFile") {
+    var f = el.files && el.files[0]; if (!f) return;
+    var rd = new FileReader(); rd.onload = function(){ handleImport(String(rd.result)); }; rd.readAsText(f); el.value = "";
+  }
+});
+
+load();
+if (active()) ui.rankId = active().rankId;
+document.getElementById("banner").hidden = storageOK;
+render();
+</script>
+</body>
+</html>
