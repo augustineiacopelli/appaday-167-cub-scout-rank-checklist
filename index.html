@@ -929,6 +929,53 @@ var RAW = [
    "Free swim for at least 30 minutes using the buddy system and staying in your ability group."],SWIM]
  ]}
 ];
+/* Range and target electives: council or district events only, with rank-specific shot counts. */
+var RANGE_NOTE = {note:"Range and target adventure: offered only at council or district events such as day camp or resident camp, under a trained rangemaster."};
+var YOUNG = {lion:1, tiger:1};
+function partner(r){ return YOUNG[r] ? ", with your adult partner" : ""; }
+function explain(r){ return (r === "webelos" || r === "aol") ? ", and explain them to an adult or another Scout" : ""; }
+var ARCHERY_SHOTS = {lion:"Shoot 2 arrows at a target, then repeat once trying to improve, for at least 4 arrows.", tiger:"Shoot 3 arrows at a target, then repeat once trying to improve, for at least 6 arrows.", wolf:"Shoot rounds of 5 arrows at a target, trying to improve each round, for at least 10 arrows.", bear:"Shoot rounds of 5 arrows at a target, trying to improve each round, for at least 15 arrows.", webelos:"Shoot rounds of 5 arrows at a target, trying to improve each round, for at least 20 arrows.", aol:"Shoot rounds of 5 arrows at a target, trying to improve each round, for at least 25 arrows."};
+var BB_SHOTS = {tiger:"Fire 5 BBs at a target and score it with your adult partner, then repeat trying to improve, for at least 10 BBs.", wolf:"Fire rounds of 5 BBs at a target, scoring each and trying to improve, for at least 15 BBs.", bear:"Fire rounds of 5 BBs at a target, scoring each and trying to improve, for at least 15 BBs.", webelos:"Fire rounds of 5 BBs at a target, scoring each and trying to improve, for at least 20 BBs.", aol:"Fire rounds of 5 BBs at a target, scoring each and trying to improve, for at least 20 BBs."};
+var SLING_SHOTS = {lion:"Shoot 2 shots at a target, then repeat once trying to improve, for at least 4 shots.", tiger:"Shoot 3 shots at a target, then repeat once trying to improve, for at least 6 shots.", wolf:"Shoot rounds of 5 shots at a target, trying to improve each round, for at least 10 shots.", bear:"Shoot rounds of 5 shots at a target, trying to improve each round, for at least 15 shots.", webelos:"Shoot rounds of 5 shots at a target, trying to improve each round, for at least 15 shots.", aol:"Shoot rounds of 5 shots at a target, trying to improve each round, for at least 20 shots."};
+function rangeAdventures(r){
+  var out = [];
+  out.push(["archery","Archery","e","E",[
+    "Identify the required safety gear and wear it correctly" + partner(r) + ".",
+    "Show the archery range safety rules and whistle commands" + partner(r) + ".",
+    "Show the proper range commands" + partner(r) + explain(r) + ".",
+    "Name the main parts of your archery equipment and how each is used" + partner(r) + ".",
+    "Show proper shooting stance and technique" + partner(r) + ".",
+    ARCHERY_SHOTS[r] + " The arrows do not have to be shot in one session.",
+    "Show how to retrieve your arrows safely.",
+    "Explain how to put away and store your archery equipment after use."], RANGE_NOTE]);
+  if (BB_SHOTS[r]) out.push(["bb-gun","BB Gun","e","E",[
+    "Explain what to do if you find a gun and say the four safety reminders.",
+    "Identify the correct safety gear and put it on.",
+    "Show the range commands" + explain(r) + ".",
+    "Show how to use the safety on your BB gun.",
+    "Show how to load, fire, and secure your BB gun.",
+    (r === "webelos" || r === "aol") ? "Demonstrate the prone, bench rest, and sitting shooting positions." : "Demonstrate one shooting position.",
+    BB_SHOTS[r],
+    "Talk about how to put away and store your BB gun and equipment after use."], RANGE_NOTE]);
+  var sl = [
+    "Identify the right safety gear and wear it correctly" + partner(r) + ".",
+    "Say the safety rules for using a slingshot" + partner(r) + ".",
+    "Show the proper range commands" + partner(r) + explain(r) + ".",
+    "Explore the parts of a slingshot and how each is used" + partner(r) + ".",
+    "Learn which kinds of ammunition may and may not be used" + partner(r) + "."];
+  if (r === "bear" || r === "webelos" || r === "aol") sl.push("Learn which kinds of targets may and may not be used.");
+  sl.push(SLING_SHOTS[r]);
+  sl.push("Talk about how to put away and store your slingshot and equipment after use.");
+  out.push(["slingshot","Slingshot","e","E",sl,RANGE_NOTE]);
+  return out;
+}
+RAW.forEach(function(rk){
+  rangeAdventures(rk.id).forEach(function(na){
+    var i = rk.adv.length;
+    for (var j = 0; j < rk.adv.length; j++) { if (rk.adv[j][2] === "e" && rk.adv[j][1].toLowerCase() > na[1].toLowerCase()) { i = j; break; } }
+    rk.adv.splice(i, 0, na);
+  });
+});
 var CATALOG = deepFreeze(RAW.map(function(rk){
   return {id:rk.id, name:rk.name, grade:rk.grade, color:rk.color, url:rk.url,
     adventures: rk.adv.map(function(a, i){
