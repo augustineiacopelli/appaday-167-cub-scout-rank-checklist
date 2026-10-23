@@ -20,6 +20,12 @@ The app handles several Scouts at once. A chip row along the top switches betwee
 
 **Queue** lists every checked requirement and alternate not yet entered in Scoutbook. Items are grouped by rank and adventure in catalog order, with requirement numbers matching Scoutbook. You can mark one item or a whole adventure as entered, and an Undo toast can reverse either. Unchecking a requirement that is already marked entered asks for confirmation first.
 
+**Reports** holds two reports for den leaders and parents.
+
+The **Den report** is a grid for one den at a time, with every Scout in that den as a column. A rank progress row sits on top, then the six required adventures, then any elective a Scout has started or pinned. "Show all electives" lists every elective. Each cell shows a check and completion date, a fraction such as 2/5 for work in progress, or RE or ALT when an alternate finished the adventure. Tap an adventure to open its requirements, each with the date every Scout finished it. Below the grid, **Most needed requirements** ranks what the most Scouts in the den still need, to help plan the next meeting.
+
+The **Shopping list** gathers every earned award not yet marked bought: rank emblems first, then adventure belt loops for Lion through Bear and adventure pins for Webelos and Arrow of Light. Each award shows a quantity and who earned it on what date. It can cover all Scouts or one den. **Bought** marks an award for everyone listed, with an Undo toast, and an "already bought" section lets you reverse any single record. **Copy list** puts a plain text version on the clipboard for the Scout Shop. **Print** gives a clean printout of either report. The Summary card also shows how many of a Scout's awards are waiting to be bought.
+
 **Settings**, behind the gear, adds, renames, and removes Scouts, and moves a Scout to a new den each fall. It also exports a backup, imports one, and resets a Scout's progress. Reset only unlocks after you type the Scout's name.
 
 ## About the requirement text
@@ -28,7 +34,7 @@ Each requirement is a plain-language summary written for this app. It is numbere
 
 ## Data and privacy
 
-Everything stays in the browser under the localStorage key `appaday167`. The app stores no accounts and makes no network calls. Export writes `appaday167-backup-YYYY-MM-DD.json`. Import checks the file's shape, reports how many Scouts, requirements, and alternates it found, then offers Replace or Merge. Merge matches Scouts by name, keeps the earlier date for any item found in both copies, and keeps an item entered if either copy says so. If the browser blocks storage, the app keeps working in memory and shows a banner recommending an export.
+Everything stays in the browser under the localStorage key `appaday167`. The app stores no accounts and makes no network calls. Export writes `appaday167-backup-YYYY-MM-DD.json`. Import checks the file's shape, reports how many Scouts, requirements, and alternates it found, then offers Replace or Merge. Merge matches Scouts by name, keeps the earlier date for any requirement, alternate, or purchase found in both copies, and keeps an item entered if either copy says so. If the browser blocks storage, the app keeps working in memory and shows a banner recommending an export.
 
 ## Technical notes
 

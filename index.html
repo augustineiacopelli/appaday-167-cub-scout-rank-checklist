@@ -49,10 +49,10 @@ a{color:var(--accent)}
 .chip .dot{width:10px;height:10px;border-radius:50%}
 .chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
 .chip.add{border-style:dashed;color:var(--ink-2)}
-.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:10px 16px 0;padding:4px;background:var(--surface-2);border-radius:14px}
-.seg button{min-height:44px;border:0;border-radius:10px;background:transparent;font-weight:600;font-size:var(--fs-s);color:var(--ink-2);position:relative}
+.seg{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:10px 16px 0;padding:4px;background:var(--surface-2);border-radius:14px}
+.seg button{min-height:44px;padding:0 2px;border:0;border-radius:10px;background:transparent;font-weight:600;font-size:clamp(11.5px,3.2vw,14.5px);color:var(--ink-2);position:relative}
 .seg button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
-.seg .badge{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--accent);color:#fff;font-size:var(--fs-xs);line-height:20px}
+.seg .badge{position:absolute;top:-8px;right:-2px;box-shadow:0 0 0 2px var(--surface-2);min-width:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;line-height:18px}
 main{flex:1;width:100%;max-width:760px;align-self:center;padding:14px 16px 24px}
 .banner{margin:10px 16px 0;padding:10px 12px;border-radius:10px;background:var(--surface-2);color:var(--warn);font-size:var(--fs-s)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px}
@@ -146,6 +146,44 @@ footer a{color:var(--ink-2)}
 .dialog .msg{font-size:var(--fs-m);margin:8px 0 4px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.subseg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--surface-2);border-radius:12px;margin-bottom:12px}
+.subseg button{min-height:44px;border:0;border-radius:9px;background:transparent;font-weight:700;font-size:var(--fs-s);color:var(--ink-2)}
+.subseg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);margin-top:12px}
+.dtable{border-collapse:separate;border-spacing:0;width:100%;font-size:var(--fs-s)}
+.dtable th,.dtable td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+.dtable thead th{font-size:var(--fs-xs);color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em;background:var(--surface-2)}
+.dtable th.rowh{position:sticky;left:0;z-index:1;background:var(--surface);text-align:left;white-space:normal;min-width:130px;max-width:170px;font-weight:600}
+.dtable thead th.rowh{background:var(--surface-2)}
+.dtable tr.sec th{background:var(--surface-2);text-align:left;font-size:var(--fs-xs);color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;position:sticky;left:0}
+.dtable tr.sub th.rowh{font-weight:400;padding-left:22px;color:var(--ink-2);font-size:var(--fs-xs);line-height:1.4}
+.dtable tr.sub td{font-size:var(--fs-xs)}
+.dtable tr.tot td,.dtable tr.tot th{font-weight:800}
+.rowbtn{display:flex;align-items:center;gap:6px;width:100%;min-height:36px;border:0;background:transparent;padding:0;text-align:left;font-weight:600}
+.rowbtn .car{display:inline-block;width:0;height:0;border-left:5px solid var(--ink-3);border-top:4px solid transparent;border-bottom:4px solid transparent;transition:transform .2s;flex:0 0 auto}
+.rowbtn[aria-expanded="true"] .car{transform:rotate(90deg)}
+.c-ok{color:var(--ok);font-weight:800}
+.c-part{color:var(--ink-2);font-weight:600}
+.c-alt{color:var(--ok);font-weight:800;font-size:var(--fs-xs)}
+.needs{display:grid;gap:8px;margin-top:8px}
+.need{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.need .cnt{flex:0 0 auto;min-width:34px;height:34px;border-radius:10px;background:var(--rk);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.need .tx{flex:1;min-width:0;font-size:var(--fs-s)}
+.shopitem{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.shopitem:first-of-type{border-top:0}
+.shopitem .qty{flex:0 0 auto;min-width:44px;height:44px;border-radius:12px;background:var(--rk);color:#fff;font-weight:800;font-size:var(--fs-l);display:flex;align-items:center;justify-content:center}
+.shopitem .what{flex:1;min-width:0}
+.shopitem .what b{display:block;font-size:var(--fs-m);line-height:1.3}
+.printhead{display:none}
+@media print{
+  body{background:#fff;color:#000}
+  .appbar,.chips,.seg,.banner,footer,.toast,.noprint,.subseg,.rankpick,.btn{display:none !important}
+  .printhead{display:block;font-weight:800;font-size:18px;margin-bottom:8px}
+  main{max-width:none;padding:0}
+  .card,.tablewrap{box-shadow:none;border-color:#999}
+  .tablewrap{overflow:visible}
+  .dtable th.rowh{position:static}
+}
 </style>
 </head>
 <body>
@@ -162,6 +200,7 @@ footer a{color:var(--ink-2)}
   <button role="tab" data-act="view" data-v="rank">Rank</button>
   <button role="tab" data-act="view" data-v="adventure">Adventure</button>
   <button role="tab" data-act="view" data-v="queue">Queue</button>
+  <button role="tab" data-act="view" data-v="reports">Reports</button>
 </div>
 <main id="view" aria-live="polite"></main>
 <footer>AppADay 167 &middot; <a href="https://augustineiacopelli.github.io/appaday/">Back to the portfolio</a><br>Requirement lines are plain-language summaries numbered to match Scoutbook. Official wording is on scouting.org.</footer>
@@ -1086,17 +1125,20 @@ function queueCount(scout){ var n = 0; queueItems(scout).forEach(function(g){ n 
 var state = {version:VERSION, activeScoutId:null, scouts:[]};
 var storageOK = true;
 var ui = {view:"summary", rankId:null, advId:null};
+var rui = {report:"den", denId:null, allElectives:false, expand:{}, shopDen:"all", showBought:false};
 function validScout(s){
   return s && typeof s === "object" && typeof s.id === "string" && typeof s.name === "string" && rankById(s.rankId) &&
     s.checks && typeof s.checks === "object" && !Array.isArray(s.checks);
 }
 function cleanScout(s){
-  var o = {id:s.id, name:s.name.slice(0, 40), rankId:s.rankId, checks:{}, alts:{}, chosenElectives:{}};
+  var o = {id:s.id, name:s.name.slice(0, 40), rankId:s.rankId, checks:{}, alts:{}, chosenElectives:{}, purchased:{}};
   Object.keys(s.checks).forEach(function(k){ var c = s.checks[k]; if (c && isDate(c.date)) o.checks[k] = {date:c.date, entered:!!c.entered}; });
   var al = s.alts && typeof s.alts === "object" ? s.alts : {};
   Object.keys(al).forEach(function(k){ var a = al[k]; if (a && ALT_LABEL[a.type] && isDate(a.date)) o.alts[k] = {type:a.type, date:a.date, entered:!!a.entered}; });
   var ce = s.chosenElectives && typeof s.chosenElectives === "object" ? s.chosenElectives : {};
   Object.keys(ce).forEach(function(k){ if (rankById(k) && Array.isArray(ce[k])) o.chosenElectives[k] = ce[k].filter(function(x){ return typeof x === "string"; }).slice(0, 2); });
+  var pu = s.purchased && typeof s.purchased === "object" ? s.purchased : {};
+  Object.keys(pu).forEach(function(k){ var x = pu[k]; if (x && isDate(x.date)) o.purchased[k] = {date:x.date}; });
   return o;
 }
 function validState(s){ return s && typeof s === "object" && Array.isArray(s.scouts) && s.scouts.every(validScout); }
@@ -1154,6 +1196,7 @@ function render(){
   if (ui.view === "summary") v.innerHTML = viewSummary();
   else if (ui.view === "rank") v.innerHTML = viewRank(s, rank);
   else if (ui.view === "adventure") v.innerHTML = viewAdventure(s, rank);
+  else if (ui.view === "reports") v.innerHTML = viewReports(s);
   else v.innerHTML = viewQueue(s);
 }
 function renderChips(){
@@ -1177,6 +1220,7 @@ function viewSummary(){
       '<div class="row small muted" style="margin:10px 0 6px"><span>' + rp.reqMet + ' of ' + rp.reqTotal + ' required, ' + rp.elMet + ' of 2 electives</span>' + (rp.complete ? '<span class="stamp">Complete</span>' : '<span>' + Math.round(rp.fraction * 100) + '%</span>') + '</div>' +
       '<div class="bar"><i style="width:' + Math.round(rp.fraction * 100) + '%"></i></div>' +
       '<div class="small" style="margin-top:10px;color:' + (q ? "var(--warn)" : "var(--ok)") + '">' + (q ? q + " item" + (q === 1 ? "" : "s") + " waiting for Scoutbook" : "Scoutbook is up to date") + '</div>' +
+      (function(){ var n = 0; shoppingItems([s]).forEach(function(it){ n += it.who.length; }); return n ? '<div class="small" style="color:var(--warn)">' + n + ' award' + (n === 1 ? "" : "s") + ' on the shopping list</div>' : ''; })() +
       '<div class="minis">' + minis + '</div></button>';
   }).join("") + '</div>';
 }
@@ -1251,6 +1295,141 @@ function viewQueue(s){
   return h;
 }
 
+/* ---------- reports ---------- */
+var PIN_RANKS = {webelos:1, aol:1};
+function awardLabel(rank, adv){ return adv ? (adv.name.indexOf(rank.name + " ") === 0 ? "" : rank.name + " ") + adv.name + (PIN_RANKS[rank.id] ? " adventure pin" : " adventure belt loop") : rank.name + " rank emblem"; }
+function rankKey(rank){ return rank.id + ".#rank"; }
+function rankDate(rank, scout){
+  var req = rank.adventures.filter(function(a){ return a.type === "required"; });
+  var ds = req.map(function(a){ return adventureDate(rank.id, a, scout); });
+  var el = rank.adventures.filter(function(a){ return a.type === "elective" && requirementsMet(rank.id, a, scout); })
+    .map(function(a){ return adventureDate(rank.id, a, scout); }).sort();
+  if (el.length >= 2) ds.push(el[1]);
+  ds.sort(); return ds[ds.length - 1] || "";
+}
+/* Earned awards, one entry per award with the Scouts who earned it. bought=true lists purchased ones instead. */
+function shoppingItems(scouts, bought){
+  var items = [];
+  CATALOG.forEach(function(rank, ri){
+    var rows = [{key:rankKey(rank), adv:null, ord:0}].concat(rank.adventures.map(function(a){ return {key:rank.id + "." + a.id, adv:a, ord:a.order}; }));
+    rows.forEach(function(row){
+      var who = [];
+      scouts.forEach(function(sc){
+        var earned = row.adv ? requirementsMet(rank.id, row.adv, sc) : rankProgress(rank, sc).complete;
+        if (!earned) return;
+        var pu = (sc.purchased || {})[row.key];
+        if (!!pu !== !!bought) return;
+        who.push({scout:sc, date:row.adv ? adventureDate(rank.id, row.adv, sc) : rankDate(rank, sc), bought:pu ? pu.date : ""});
+      });
+      if (who.length) items.push({key:row.key, rank:rank, adv:row.adv, label:awardLabel(rank, row.adv), who:who, sort:ri * 1000 + row.ord});
+    });
+  });
+  return items;
+}
+function denScouts(rankId){ return state.scouts.filter(function(x){ return x.rankId === rankId; }); }
+function denNeeds(rank, scouts, advs){
+  var out = [];
+  advs.forEach(function(a){
+    a.reqs.forEach(function(r){
+      var need = scouts.filter(function(sc){ return !requirementsMet(rank.id, a, sc) && !sc.checks[ckey(rank.id, a.id, r.n)]; });
+      if (need.length) out.push({adv:a, req:r, need:need});
+    });
+  });
+  out.sort(function(x, y){ return y.need.length - x.need.length || (x.adv.type === y.adv.type ? 0 : x.adv.type === "required" ? -1 : 1) || x.adv.order - y.adv.order || (+x.req.n) - (+y.req.n); });
+  return out;
+}
+function shortDate(s){ if (!isDate(s)) return ""; var p = s.split("-"); return (+p[1]) + "/" + (+p[2]); }
+function viewReports(s){
+  return '<div class="subseg noprint" role="group" aria-label="Report"><button data-act="report" data-r="den" aria-pressed="' + (rui.report === "den") + '">Den report</button><button data-act="report" data-r="shop" aria-pressed="' + (rui.report === "shop") + '">Shopping list</button></div>' +
+    (rui.report === "shop" ? viewShop() : viewDen(s));
+}
+function viewDen(s){
+  var rank = rankById(rui.denId || s.rankId); rui.denId = rank.id;
+  var pick = '<div class="rankpick noprint" role="group" aria-label="Den">' + CATALOG.map(function(r){ var n = denScouts(r.id).length; return '<button style="--c:' + r.color + '" data-act="den" data-id="' + r.id + '" aria-pressed="' + (r.id === rank.id) + '">' + esc(r.name) + (n ? ' (' + n + ')' : '') + '</button>'; }).join("") + '</div>';
+  var scouts = denScouts(rank.id);
+  var printHead = '<div class="printhead">' + esc(rank.name) + ' den report, ' + fmtDate(today()) + '</div>';
+  if (!scouts.length) return pick + '<div class="card empty" style="margin-top:12px"><div class="big">No Scouts in this den</div><p class="muted">Each Scout\'s den for this year is set in Settings.</p><button class="btn" data-act="settings">Open Settings</button></div>';
+  var req = rank.adventures.filter(function(a){ return a.type === "required"; });
+  var els = rank.adventures.filter(function(a){ return a.type === "elective"; });
+  var shownEl = rui.allElectives ? els : els.filter(function(a){
+    return scouts.some(function(sc){ return adventureProgress(rank.id, a, sc) > 0 || (sc.chosenElectives[rank.id] || []).indexOf(a.id) >= 0; });
+  });
+  var head = '<tr><th class="rowh">Adventure</th>' + scouts.map(function(sc){ return '<th>' + esc(sc.name) + '</th>'; }).join("") + '</tr>';
+  function advRows(a){
+    var open = !!rui.expand[rank.id + "." + a.id];
+    var h = '<tr><th class="rowh"><button class="rowbtn" data-act="den-expand" data-id="' + a.id + '" aria-expanded="' + open + '"><span class="car"></span>' + esc(a.name) + '</button></th>';
+    scouts.forEach(function(sc){
+      var met = requirementsMet(rank.id, a, sc), t = tally(rank.id, a, sc), alt = altFor(rank.id, a, sc);
+      h += '<td>' + (met ? '<span class="c-ok" title="' + esc(fmtDate(adventureDate(rank.id, a, sc))) + '">&#10003; ' + shortDate(adventureDate(rank.id, a, sc)) + '</span>' + (alt ? ' <span class="c-alt">' + (alt.type === "religiousEmblem" ? "RE" : "ALT") + '</span>' : '')
+        : t.met ? '<span class="c-part">' + t.met + '/' + t.total + '</span>' : '') + '</td>';
+    });
+    h += '</tr>';
+    if (open) a.reqs.forEach(function(r){
+      h += '<tr class="sub"><th class="rowh">' + esc(r.n) + '. ' + esc(r.text) + '</th>';
+      scouts.forEach(function(sc){ var c = sc.checks[ckey(rank.id, a.id, r.n)]; h += '<td>' + (c ? '<span class="c-ok">' + shortDate(c.date) + '</span>' : '') + '</td>'; });
+      h += '</tr>';
+    });
+    return h;
+  }
+  var body = '<tr class="tot"><th class="rowh">Rank progress</th>' + scouts.map(function(sc){ var rp = rankProgress(rank, sc); return '<td' + (rp.complete ? ' class="c-ok"' : '') + '>' + (rp.complete ? '&#10003; ' + shortDate(rankDate(rank, sc)) : Math.round(rp.fraction * 100) + '%') + '</td>'; }).join("") + '</tr>';
+  body += '<tr class="sec"><th colspan="' + (scouts.length + 1) + '">Required</th></tr>' + req.map(advRows).join("");
+  body += '<tr class="sec"><th colspan="' + (scouts.length + 1) + '">Electives' + (rui.allElectives ? '' : ' in progress or pinned') + '</th></tr>' + (shownEl.length ? shownEl.map(advRows).join("") : '<tr><td colspan="' + (scouts.length + 1) + '" class="muted" style="text-align:left">No electives started yet.</td></tr>');
+  var needs = denNeeds(rank, scouts, req.concat(shownEl)).slice(0, 12);
+  var nh = needs.length ? '<h3>Most needed requirements</h3><p class="small muted" style="margin-top:0">What the most Scouts in this den still need, to help plan the next meeting.</p><div class="needs">' + needs.map(function(n){
+      return '<div class="need"><span class="cnt">' + n.need.length + '</span><div class="tx"><b>' + esc(n.adv.name) + ' ' + esc(n.req.n) + '.</b> ' + esc(n.req.text) + '<div class="xs muted" style="margin-top:2px">' + (n.need.length === scouts.length ? 'Everyone' : esc(n.need.map(function(x){ return x.name; }).join(", "))) + '</div></div></div>';
+    }).join("") + '</div>' : '<div class="card empty" style="margin-top:12px"><div class="big">Den is all caught up</div><p class="muted">Every requirement shown is complete for every Scout.</p></div>';
+  return pick + printHead + '<div class="btnrow noprint"><button class="btn" data-act="den-all">' + (rui.allElectives ? 'Hide unstarted electives' : 'Show all electives') + '</button><button class="btn" data-act="print">Print</button></div>' +
+    '<div class="tablewrap"><table class="dtable"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' +
+    '<p class="xs muted">Tap an adventure to see each requirement. RE means completed by Religious Emblem; ALT means a swim alternate.</p>' + nh;
+}
+function shopScope(){ return state.scouts.filter(function(x){ return rui.shopDen === "all" || x.rankId === rui.shopDen; }); }
+function shopText(items){
+  var lines = ["Cub Scout awards shopping list, " + fmtDate(today())], total = 0;
+  items.forEach(function(it){ total += it.who.length; lines.push(it.who.length + " x " + it.label + " (" + it.who.map(function(w){ return w.scout.name; }).join(", ") + ")"); });
+  lines.push("Total: " + total + " item" + (total === 1 ? "" : "s"));
+  return lines.join("\n");
+}
+function viewShop(){
+  var dens = CATALOG.filter(function(r){ return denScouts(r.id).length; });
+  if (rui.shopDen !== "all" && !denScouts(rui.shopDen).length) rui.shopDen = "all";
+  var pick = '<div class="rankpick noprint" role="group" aria-label="Scouts"><button style="--c:#6b6157" data-act="shop-den" data-id="all" aria-pressed="' + (rui.shopDen === "all") + '">All Scouts</button>' +
+    dens.map(function(r){ return '<button style="--c:' + r.color + '" data-act="shop-den" data-id="' + r.id + '" aria-pressed="' + (rui.shopDen === r.id) + '">' + esc(r.name) + ' den</button>'; }).join("") + '</div>';
+  var scope = shopScope(), items = shoppingItems(scope), bought = shoppingItems(scope, true);
+  var total = 0; items.forEach(function(it){ total += it.who.length; });
+  var h = pick + '<div class="printhead">Awards shopping list, ' + fmtDate(today()) + '</div>';
+  if (!items.length) h += '<div class="card empty" style="margin-top:12px"><div class="big">Nothing to buy</div><p class="muted">Every earned adventure and rank has been marked as bought. Completed adventures and ranks show up here automatically.</p></div>';
+  else {
+    h += '<div class="card" style="margin-top:12px"><div class="row" style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><div><b style="font-size:var(--fs-l)">' + total + ' item' + (total === 1 ? "" : "s") + '</b><div class="small muted">' + items.length + ' different award' + (items.length === 1 ? "" : "s") + '</div></div>' +
+      '<div class="btnrow noprint" style="margin:0"><button class="btn" data-act="shop-copy">Copy list</button><button class="btn" data-act="print">Print</button></div></div></div>';
+    var last = null;
+    items.forEach(function(it){
+      if (it.rank.id !== last) { if (last) h += '</div>'; h += '<h3 style="color:' + it.rank.color + '">' + esc(it.rank.name) + '</h3><div class="card" style="--rk:' + it.rank.color + ';padding-top:0;padding-bottom:0">'; last = it.rank.id; }
+      h += '<div class="shopitem"><span class="qty">' + it.who.length + '</span><div class="what"><b>' + esc(it.label) + '</b><span class="xs muted">' + esc(it.who.map(function(w){ return w.scout.name + " (" + fmtDate(w.date) + ")"; }).join(", ")) + '</span></div><button class="btn noprint" data-act="shop-buy" data-key="' + esc(it.key) + '">Bought</button></div>';
+    });
+    h += '</div>';
+  }
+  if (bought.length) {
+    h += '<div class="btnrow noprint"><button class="btn ghost" data-act="shop-bought">' + (rui.showBought ? 'Hide' : 'Show') + ' already bought (' + bought.reduce(function(n, it){ return n + it.who.length; }, 0) + ')</button></div>';
+    if (rui.showBought) {
+      h += '<div class="card noprint" style="padding-top:0;padding-bottom:0">';
+      bought.forEach(function(it){ it.who.forEach(function(w){
+        h += '<div class="shopitem"><div class="what"><b>' + esc(it.label) + '</b><span class="xs muted">' + esc(w.scout.name) + ', bought ' + fmtDate(w.bought) + '</span></div><button class="btn ghost" data-act="shop-unbuy" data-key="' + esc(it.key) + '" data-id="' + esc(w.scout.id) + '">Undo</button></div>';
+      }); });
+      h += '</div>';
+    }
+  }
+  return h;
+}
+function copyText(text){
+  function fallback(){
+    var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "absolute"; ta.style.left = "-9999px";
+    document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta);
+    toast(ok ? "Shopping list copied" : "Copy is blocked in this browser");
+  }
+  try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(function(){ toast("Shopping list copied"); }, fallback); return; } } catch (e) {}
+  fallback();
+}
+
 /* ---------- settings ---------- */
 function rankOptions(sel){ return CATALOG.map(function(r){ return '<option value="' + r.id + '"' + (r.id === sel ? " selected" : "") + '>' + esc(r.name) + '</option>'; }).join(""); }
 function openSettings(focusAdd){
@@ -1266,7 +1445,7 @@ function openSettings(focusAdd){
     '<div class="field"><label for="newRank">Den this year</label><select class="inp" id="newRank">' + rankOptions("lion") + '</select></div><div class="btnrow"><button class="btn primary" data-act="add-scout">Add Scout</button></div></div>' +
     '<h3>Backup</h3><p class="small muted">Saved on this device only. Export a backup now and then, and import it on another device or browser.</p>' +
     '<div class="btnrow"><button class="btn" data-act="export">Export backup</button><button class="btn" data-act="import">Import backup</button></div>';
-  if (s) h += '<h3>Reset</h3><p class="small muted">Clears every check, alternate, and pin for ' + esc(s.name) + '. Type the name to confirm.</p><div class="field"><label for="resetName">Scout name</label><input class="inp" id="resetName" autocomplete="off" data-act="reset-type"></div><div class="btnrow"><button class="btn danger" id="resetBtn" data-act="reset" disabled>Reset ' + esc(s.name) + '</button></div>';
+  if (s) h += '<h3>Reset</h3><p class="small muted">Clears every check, alternate, pin, and purchase record for ' + esc(s.name) + '. Type the name to confirm.</p><div class="field"><label for="resetName">Scout name</label><input class="inp" id="resetName" autocomplete="off" data-act="reset-type"></div><div class="btnrow"><button class="btn danger" id="resetBtn" data-act="reset" disabled>Reset ' + esc(s.name) + '</button></div>';
   openSheet(h, "settings");
 }
 
@@ -1298,6 +1477,8 @@ function mergeState(cur, inc){
     if (!m) { cur.scouts.push(x); return; }
     Object.keys(x.checks).forEach(function(k){ m.checks[k] = mergeItem(m.checks[k], x.checks[k]); });
     Object.keys(x.alts).forEach(function(k){ m.alts[k] = mergeItem(m.alts[k], x.alts[k]); });
+    m.purchased = m.purchased || {};
+    Object.keys(x.purchased || {}).forEach(function(k){ var a = m.purchased[k], b = x.purchased[k]; m.purchased[k] = !a || b.date < a.date ? {date:b.date} : a; });
     Object.keys(x.chosenElectives).forEach(function(r){ var u = (m.chosenElectives[r] || []).slice(); x.chosenElectives[r].forEach(function(e){ if (u.indexOf(e) < 0) u.push(e); }); m.chosenElectives[r] = u.slice(0, 2); });
     if (rankIndex(x.rankId) > rankIndex(m.rankId)) m.rankId = x.rankId;
   });
@@ -1348,6 +1529,20 @@ function act(el, ev){
       var ak2 = akey(rk, ad); if (s.alts[ak2] && !s.alts[ak2].entered) { s.alts[ak2].entered = true; changed.push(s.alts[ak2]); }
       commit(); toast(changed.length + " item" + (changed.length === 1 ? "" : "s") + " marked entered", function(){ changed.forEach(function(x){ x.entered = false; }); commit(); });
       break;
+    case "report": rui.report = el.getAttribute("data-r"); render(); break;
+    case "den": rui.denId = el.getAttribute("data-id"); render(); break;
+    case "den-all": rui.allElectives = !rui.allElectives; render(); break;
+    case "den-expand": var ek = rui.denId + "." + el.getAttribute("data-id"); rui.expand[ek] = !rui.expand[ek]; render(); break;
+    case "print": window.print(); break;
+    case "shop-den": rui.shopDen = el.getAttribute("data-id"); render(); break;
+    case "shop-bought": rui.showBought = !rui.showBought; render(); break;
+    case "shop-copy": copyText(shopText(shoppingItems(shopScope()))); break;
+    case "shop-buy":
+      var bk = el.getAttribute("data-key"), done = [];
+      shoppingItems(shopScope()).forEach(function(it){ if (it.key === bk) it.who.forEach(function(w){ w.scout.purchased = w.scout.purchased || {}; w.scout.purchased[bk] = {date:today()}; done.push(w.scout); }); });
+      commit(); toast(done.length + " marked bought", function(){ done.forEach(function(x){ delete x.purchased[bk]; }); commit(); });
+      break;
+    case "shop-unbuy": var us = scoutById(el.getAttribute("data-id")); if (us && us.purchased) { delete us.purchased[el.getAttribute("data-key")]; commit(); } break;
     case "undo": if (undoFn) { var f = undoFn; undoFn = null; f(); } document.getElementById("toast").classList.remove("show"); break;
     case "settings": openSettings(false); break;
     case "settings-add": openSettings(true); break;
@@ -1356,7 +1551,7 @@ function act(el, ev){
     case "add-scout":
       var nm = document.getElementById("newName").value.trim(), nr = document.getElementById("newRank").value;
       if (!nm) { toast("Enter a name first"); return; }
-      var ns = {id:uid(), name:nm.slice(0, 40), rankId:nr, checks:{}, alts:{}, chosenElectives:{}};
+      var ns = {id:uid(), name:nm.slice(0, 40), rankId:nr, checks:{}, alts:{}, chosenElectives:{}, purchased:{}};
       state.scouts.push(ns); state.activeScoutId = ns.id; ui.rankId = nr; ui.advId = null; ui.view = "rank"; save(); render(); openSettings(false); toast(nm + " added");
       break;
     case "remove-scout":
@@ -1375,7 +1570,7 @@ function act(el, ev){
     case "import-merge": state = mergeState(state, pendingImport); pendingImport = null; ui = {view:"summary", rankId:null, advId:null}; closeSheet(); commit(); toast("Backup merged"); break;
     case "reset":
       if (document.getElementById("resetName").value.trim().toLowerCase() !== s.name.trim().toLowerCase()) return;
-      s.checks = {}; s.alts = {}; s.chosenElectives = {}; closeSheet(); commit(); toast(s.name + " reset"); break;
+      s.checks = {}; s.alts = {}; s.chosenElectives = {}; s.purchased = {}; closeSheet(); commit(); toast(s.name + " reset"); break;
   }
 }
 document.addEventListener("click", function(ev){
